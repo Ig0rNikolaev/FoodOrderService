@@ -9,12 +9,14 @@ import UIKit
 
 final class OnboardingView: UIViewController {
 
+    private var onboardingViewModel = OnboardingViewModel()
+
     //: MARK: - UI Elements
 
     private lazy var collectionOnboarding: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collection.register(Onboarding.self, forCellWithReuseIdentifier: Onboarding.identifier)
+        collection.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         collection.delegate = self
         collection.dataSource = self
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -33,11 +35,22 @@ final class OnboardingView: UIViewController {
 
     private lazy var buttonOnboarding: UIButton = {
         let button = UIButton()
-        button.setTitle("Next", for: .normal)
-        button.backgroundColor = .blue
+        button.setTitle("Дальше", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+
+    private lazy var stackButtonPages: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [pageOnboarding, buttonOnboarding])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = 25
+        stack.distribution = .equalCentering
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
 
 
@@ -62,35 +75,39 @@ final class OnboardingView: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(collectionOnboarding)
-        view.addSubview(pageOnboarding)
-        view.addSubview(buttonOnboarding)
+        view.addSubview(stackButtonPages)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-//            collectionOnboarding.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            collectionOnboarding.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-//            collectionOnboarding.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-//            collectionOnboarding.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-//            collectionOnboarding.bottomAnchor.constraint(equalTo: pageOnboarding.topAnchor, constant: -20),
+            collectionOnboarding.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionOnboarding.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionOnboarding.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionOnboarding.bottomAnchor.constraint(equalTo: pageOnboarding.topAnchor, constant: -20),
 
-            pageOnboarding.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageOnboarding.bottomAnchor.constraint(equalTo: buttonOnboarding.topAnchor, constant: -20),
+            stackButtonPages.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackButtonPages.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
 
-            buttonOnboarding.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonOnboarding.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonOnboarding.widthAnchor.constraint(equalToConstant: 175),
             buttonOnboarding.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
 }
 
-extension OnboardingView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension OnboardingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath)
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width,
+                      height: view.frame.height / 1.5)
     }
 }

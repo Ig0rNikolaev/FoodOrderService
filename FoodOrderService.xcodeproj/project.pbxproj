@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB7D2B052A30BB7A00BDA872 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */; };
 		DB7D2B072A30BB9100BDA872 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */; };
+		DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B0A2A30C71B00BDA872 /* OnboardingCell.swift */; };
 		DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F22A2A109F0056931C /* AppDelegate.swift */; };
 		DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F42A2A109F0056931C /* SceneDelegate.swift */; };
 		DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F62A2A109F0056931C /* OnboardingView.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		DB7D2B0A2A30C71B00BDA872 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		DBE599EF2A2A109F0056931C /* FoodOrderService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodOrderService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE599F22A2A109F0056931C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE599F42A2A109F0056931C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,11 +44,20 @@
 		DB7D2B032A30BB6100BDA872 /* OnboardingScene */ = {
 			isa = PBXGroup;
 			children = (
+				DB7D2B092A30C6EB00BDA872 /* OnboardingCell */,
 				DBE599F62A2A109F0056931C /* OnboardingView.swift */,
 				DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */,
 				DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */,
 			);
 			path = OnboardingScene;
+			sourceTree = "<group>";
+		};
+		DB7D2B092A30C6EB00BDA872 /* OnboardingCell */ = {
+			isa = PBXGroup;
+			children = (
+				DB7D2B0A2A30C71B00BDA872 /* OnboardingCell.swift */,
+			);
+			path = OnboardingCell;
 			sourceTree = "<group>";
 		};
 		DBE599E62A2A109F0056931C = {
@@ -174,6 +185,7 @@
 			files = (
 				DB7D2B072A30BB9100BDA872 /* OnboardingViewModel.swift in Sources */,
 				DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */,
+				DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */,
 				DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */,
 				DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */,
 				DB7D2B052A30BB7A00BDA872 /* OnboardingModel.swift in Sources */,
