@@ -9,7 +9,7 @@ import UIKit
 
 final class OnboardingView: UIViewController {
 
-    private var onboardingViewModel = OnboardingViewModel()
+    private var onboardingViewModel: OnboardingViewModel?
 
     //: MARK: - UI Elements
 
@@ -61,9 +61,14 @@ final class OnboardingView: UIViewController {
         setupView()
         setupHierarchy()
         setupLayout()
+        configuration()
     }
 
     //: MARK: - Setups
+
+    private func configuration() {
+        onboardingViewModel = OnboardingViewModel()
+    }
 
     @objc func tabButton() {
 
@@ -96,11 +101,13 @@ final class OnboardingView: UIViewController {
 
 extension OnboardingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        onboardingViewModel?.slides.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath)
+       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier,
+                                                           for: indexPath) as? OnboardingCell else { return UICollectionViewCell() }
+        cell.setupCell(viewModel: onboardingViewModel, index: indexPath.item)
         return cell
     }
 

@@ -8,7 +8,7 @@
 import UIKit
 
 struct OnboardingModel {
-    let title: String
-    let description: String
-    let view: UIImage
+    let title: String?
+    let description: String?
+    let view: UIImage?
 }
