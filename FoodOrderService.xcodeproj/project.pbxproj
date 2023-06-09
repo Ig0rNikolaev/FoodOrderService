@@ -45,8 +45,8 @@
 			isa = PBXGroup;
 			children = (
 				DB7D2B092A30C6EB00BDA872 /* OnboardingCell */,
-				DBE599F62A2A109F0056931C /* OnboardingView.swift */,
 				DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */,
+				DBE599F62A2A109F0056931C /* OnboardingView.swift */,
 				DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */,
 			);
 			path = OnboardingScene;

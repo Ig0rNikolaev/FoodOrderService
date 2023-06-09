@@ -10,12 +10,13 @@ import UIKit
 class OnboardingCell: UICollectionViewCell {
     
     static let identifier = "OnboardingCell"
+
+    var onboardingViewModel: OnboardingViewModelProtocol = OnboardingViewModel()
     
     //: MARK: - UI Elements
     
     lazy var imageCellСonteiner: UIView = {
         let image = UIView()
-        image.backgroundColor = .systemBlue
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -25,17 +26,17 @@ class OnboardingCell: UICollectionViewCell {
     lazy var imageCell: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
     lazy var labelCellTitle: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .darkText
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 35, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,6 +67,7 @@ class OnboardingCell: UICollectionViewCell {
         super.init(frame: frame)
         setupHierarchy()
         setupLayout()
+
     }
     
     required init?(coder: NSCoder) {
@@ -86,22 +88,29 @@ class OnboardingCell: UICollectionViewCell {
             imageCell.rightAnchor.constraint(equalTo: imageCellСonteiner.rightAnchor),
             imageCell.bottomAnchor.constraint(equalTo: imageCellСonteiner.bottomAnchor),
             imageCell.leftAnchor.constraint(equalTo: imageCellСonteiner.leftAnchor),
-            
+
             imageCellСonteiner.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageCellСonteiner.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageCellСonteiner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -150),
+            imageCellСonteiner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170),
             imageCellСonteiner.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            
-            stackLabel.topAnchor.constraint(equalTo: imageCellСonteiner.bottomAnchor, constant: 20),
+
+            stackLabel.topAnchor.constraint(equalTo: imageCellСonteiner.bottomAnchor),
             stackLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stackLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             stackLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor)
         ])
     }
     
-    func setupCell(viewModel: OnboardingViewModel?, index: Int) {
-        imageCell.image = viewModel?.slides[index].view
-        labelCellTitle.text = viewModel?.slides[index].title
-        labelCellDescription.text = viewModel?.slides[index].description
+    func setupCell(index: Int) {
+        onboardingViewModel.setupCellView(imageCell: imageCell,
+                                          labelCellTitle: labelCellTitle,
+                                          labelCellDescription: labelCellDescription,
+                                          index: index)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageCell.image = nil
+        labelCellTitle.text = nil
+        labelCellDescription.text = nil
     }
 }
