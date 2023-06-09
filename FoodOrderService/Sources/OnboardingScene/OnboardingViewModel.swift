@@ -37,9 +37,12 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     }
 
     func button(currentPage: inout Int, collectionView: UICollectionView) {
-        currentPage += 1
-        let indexPath = IndexPath(item: currentPage, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        if currentPage == slides.count - 1 {
+       // логика перехода (нужно сделать Coordinator)
+        } else {
+            currentPage += 1
+            let indexPath = IndexPath(item: currentPage, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
 }
-
