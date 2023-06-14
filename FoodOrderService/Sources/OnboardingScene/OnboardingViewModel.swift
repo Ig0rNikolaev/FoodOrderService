@@ -10,7 +10,7 @@ import UIKit
 protocol OnboardingViewModelProtocol: AnyObject {
     var slides: [OnboardingModel] { get set }
     func configureCell(cell: OnboardingCell, at index: Int)
-    func button(currentPage: inout Int, collectionView: UICollectionView)
+    func button(currentPage: inout Int, collectionView: UICollectionView, complitionHandler: SceneNavigation?)
     func setupCellView(imageCell: UIImageView, labelCellTitle: UILabel, labelCellDescription: UILabel, index: Int)
 }
 
@@ -25,20 +25,20 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
                                   description: "Любые деликатесы и блюда разной кухни, стрит-фуд из ресторанов, кафе и баров",
                                   view:  UIImage(named: "slide2") ?? UIImage())
     ]
-
+    
     func setupCellView(imageCell: UIImageView, labelCellTitle: UILabel, labelCellDescription: UILabel, index: Int) {
         imageCell.image = slides[index].view
         labelCellTitle.text = slides[index].title
         labelCellDescription.text = slides[index].description
     }
-
+    
     func configureCell(cell: OnboardingCell, at index: Int) {
         cell.setupCell(index: index)
     }
-
-    func button(currentPage: inout Int, collectionView: UICollectionView) {
+    
+    func button(currentPage: inout Int, collectionView: UICollectionView, complitionHandler: SceneNavigation?) {
         if currentPage == slides.count - 1 {
-       // логика перехода (нужно сделать Coordinator)
+            complitionHandler?()
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)

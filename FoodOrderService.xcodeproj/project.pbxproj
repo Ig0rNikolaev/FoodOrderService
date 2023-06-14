@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB52C63E2A38AD1E00B9E556 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C63D2A38AD1E00B9E556 /* MainView.swift */; };
+		DB52C6452A38B0F800B9E556 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C6442A38B0F800B9E556 /* AppCoordinator.swift */; };
+		DB52C64E2A38E1BA00B9E556 /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C64D2A38E1BA00B9E556 /* CoordinatorFactory.swift */; };
+		DB52C6502A38E2E000B9E556 /* ModulFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C64F2A38E2E000B9E556 /* ModulFactory.swift */; };
+		DB52C6582A39BDB300B9E556 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C6572A39BDB300B9E556 /* Coordinator.swift */; };
+		DB52C65A2A39BDC900B9E556 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52C6592A39BDC900B9E556 /* SceneController.swift */; };
 		DB7D2B052A30BB7A00BDA872 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */; };
 		DB7D2B072A30BB9100BDA872 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */; };
 		DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D2B0A2A30C71B00BDA872 /* OnboardingCell.swift */; };
@@ -18,6 +24,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB52C63D2A38AD1E00B9E556 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		DB52C6442A38B0F800B9E556 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DB52C64D2A38E1BA00B9E556 /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		DB52C64F2A38E2E000B9E556 /* ModulFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulFactory.swift; sourceTree = "<group>"; };
+		DB52C6572A39BDB300B9E556 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DB52C6592A39BDC900B9E556 /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		DB7D2B042A30BB7A00BDA872 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		DB7D2B062A30BB9100BDA872 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		DB7D2B0A2A30C71B00BDA872 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
@@ -41,6 +53,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB52C63C2A38ABAB00B9E556 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				DB52C63D2A38AD1E00B9E556 /* MainView.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		DB52C6432A38B0BE00B9E556 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				DB52C6442A38B0F800B9E556 /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		DB52C64C2A38E19600B9E556 /* Factorys */ = {
+			isa = PBXGroup;
+			children = (
+				DB52C64D2A38E1BA00B9E556 /* CoordinatorFactory.swift */,
+				DB52C64F2A38E2E000B9E556 /* ModulFactory.swift */,
+			);
+			path = Factorys;
+			sourceTree = "<group>";
+		};
+		DB52C6562A39BDA200B9E556 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DB52C6572A39BDB300B9E556 /* Coordinator.swift */,
+				DB52C6592A39BDC900B9E556 /* SceneController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		DB7D2B032A30BB6100BDA872 /* OnboardingScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +134,12 @@
 		DBE59A062A2A123F0056931C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DB52C6562A39BDA200B9E556 /* Base */,
 				DBE59A072A2A12490056931C /* App */,
+				DB52C64C2A38E19600B9E556 /* Factorys */,
+				DB52C6432A38B0BE00B9E556 /* Coordinators */,
 				DB7D2B032A30BB6100BDA872 /* OnboardingScene */,
+				DB52C63C2A38ABAB00B9E556 /* MainScene */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -184,9 +234,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB7D2B072A30BB9100BDA872 /* OnboardingViewModel.swift in Sources */,
+				DB52C6502A38E2E000B9E556 /* ModulFactory.swift in Sources */,
+				DB52C65A2A39BDC900B9E556 /* SceneController.swift in Sources */,
+				DB52C63E2A38AD1E00B9E556 /* MainView.swift in Sources */,
 				DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */,
 				DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */,
+				DB52C64E2A38E1BA00B9E556 /* CoordinatorFactory.swift in Sources */,
+				DB52C6582A39BDB300B9E556 /* Coordinator.swift in Sources */,
 				DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */,
+				DB52C6452A38B0F800B9E556 /* AppCoordinator.swift in Sources */,
 				DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */,
 				DB7D2B052A30BB7A00BDA872 /* OnboardingModel.swift in Sources */,
 			);

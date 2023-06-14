@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class OnboardingView: UIViewController {
-    
-    private var onboardingViewModel: OnboardingViewModelProtocol?
-    
+final class OnboardingView: UIViewController, FlowController {
+
+    var goToNextScreen: SceneNavigation?
+    var onboardingViewModel: OnboardingViewModelProtocol?
     var currentPage = 0 {
         didSet {
             pageOnboarding.currentPage = currentPage
@@ -29,7 +29,6 @@ final class OnboardingView: UIViewController {
         collection.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         collection.contentInsetAdjustmentBehavior = .scrollableAxes
         collection.delegate = self
-        collection.delegate = self
         collection.dataSource = self
         collection.showsHorizontalScrollIndicator = false
         collection.showsVerticalScrollIndicator = false
@@ -40,7 +39,6 @@ final class OnboardingView: UIViewController {
     
     private lazy var pageOnboarding: UIPageControl = {
         let page = UIPageControl()
-        page.numberOfPages = 3
         page.pageIndicatorTintColor = .systemGray3
         page.currentPageIndicatorTintColor = .black
         page.backgroundStyle = .automatic
@@ -78,6 +76,7 @@ final class OnboardingView: UIViewController {
         setupHierarchy()
         setupLayout()
         configuration()
+        numberOfPages()
     }
     
     //: MARK: - Setups
@@ -96,13 +95,20 @@ final class OnboardingView: UIViewController {
             return sectionLayout
         }
     }
+
+    private func numberOfPages() {
+        let pagesCount = onboardingViewModel?.slides.count ?? 0
+        pageOnboarding.numberOfPages = pagesCount
+    }
     
     private func configuration() {
         onboardingViewModel = OnboardingViewModel()
     }
     
     @objc func tabButton() {
-        onboardingViewModel?.button(currentPage: &currentPage, collectionView: collectionOnboarding)
+        onboardingViewModel?.button(currentPage: &currentPage,
+                                    collectionView: collectionOnboarding,
+                                    complitionHandler: goToNextScreen)
     }
     
     private func setupView() {
@@ -149,10 +155,3 @@ extension OnboardingView: UICollectionViewDelegate {
         currentPage = visibleIndexPaths.first?.item ?? 0
     }
 }
-
-
-
-
-
-
-
