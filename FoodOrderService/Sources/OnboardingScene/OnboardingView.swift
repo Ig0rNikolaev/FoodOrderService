@@ -81,7 +81,7 @@ final class OnboardingView: UIViewController, FlowController {
     
     //: MARK: - Setups
     
-    func createLayout() -> UICollectionViewCompositionalLayout {
+   private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)

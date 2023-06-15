@@ -15,7 +15,7 @@ class OnboardingCell: UICollectionViewCell {
     
     //: MARK: - UI Elements
     
-    lazy var imageCellСonteiner: UIView = {
+    lazy var imageСonteinerOnboardingCell: UIView = {
         let image = UIView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
@@ -23,7 +23,7 @@ class OnboardingCell: UICollectionViewCell {
         return image
     }()
     
-    lazy var imageCell: UIImageView = {
+    lazy var imageOnboardingCell: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFit
@@ -31,7 +31,7 @@ class OnboardingCell: UICollectionViewCell {
         return image
     }()
     
-    lazy var labelCellTitle: UILabel = {
+    lazy var labelTitleOnboardingCell: UILabel = {
         let label = UILabel()
         label.textColor = .darkText
         label.textAlignment = .center
@@ -41,7 +41,7 @@ class OnboardingCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var labelCellDescription: UILabel = {
+    lazy var labelDescriptionOnboardingCell: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray3
         label.textAlignment = .center
@@ -51,8 +51,8 @@ class OnboardingCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var stackLabel: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [labelCellTitle, labelCellDescription])
+    private lazy var stackLabelOnboardingCell: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [labelTitleOnboardingCell, labelDescriptionOnboardingCell])
         stack.axis = .vertical
         stack.alignment = .center
         stack.spacing = 15
@@ -67,7 +67,6 @@ class OnboardingCell: UICollectionViewCell {
         super.init(frame: frame)
         setupHierarchy()
         setupLayout()
-
     }
     
     required init?(coder: NSCoder) {
@@ -77,40 +76,40 @@ class OnboardingCell: UICollectionViewCell {
     //: MARK: - Setups
     
     func setupHierarchy() {
-        imageCellСonteiner.addSubview(imageCell)
-        contentView.addSubview(imageCellСonteiner)
-        contentView.addSubview(stackLabel)
+        imageСonteinerOnboardingCell.addSubview(imageOnboardingCell)
+        contentView.addSubview(imageСonteinerOnboardingCell)
+        contentView.addSubview(stackLabelOnboardingCell)
     }
     
     func setupLayout() {
         NSLayoutConstraint.activate([
-            imageCell.topAnchor.constraint(equalTo: imageCellСonteiner.topAnchor),
-            imageCell.rightAnchor.constraint(equalTo: imageCellСonteiner.rightAnchor),
-            imageCell.bottomAnchor.constraint(equalTo: imageCellСonteiner.bottomAnchor),
-            imageCell.leftAnchor.constraint(equalTo: imageCellСonteiner.leftAnchor),
+            imageOnboardingCell.topAnchor.constraint(equalTo: imageСonteinerOnboardingCell.topAnchor),
+            imageOnboardingCell.rightAnchor.constraint(equalTo: imageСonteinerOnboardingCell.rightAnchor),
+            imageOnboardingCell.bottomAnchor.constraint(equalTo: imageСonteinerOnboardingCell.bottomAnchor),
+            imageOnboardingCell.leftAnchor.constraint(equalTo: imageСonteinerOnboardingCell.leftAnchor),
 
-            imageCellСonteiner.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageCellСonteiner.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageCellСonteiner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170),
-            imageCellСonteiner.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageСonteinerOnboardingCell.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageСonteinerOnboardingCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            imageСonteinerOnboardingCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170),
+            imageСonteinerOnboardingCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
 
-            stackLabel.topAnchor.constraint(equalTo: imageCellСonteiner.bottomAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stackLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor)
+            stackLabelOnboardingCell.topAnchor.constraint(equalTo: imageСonteinerOnboardingCell.bottomAnchor),
+            stackLabelOnboardingCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            stackLabelOnboardingCell.leftAnchor.constraint(equalTo: contentView.leftAnchor)
         ])
     }
     
     func setupCell(index: Int) {
-        onboardingViewModel.setupCellView(imageCell: imageCell,
-                                          labelCellTitle: labelCellTitle,
-                                          labelCellDescription: labelCellDescription,
+        onboardingViewModel.setupCellView(imageCell: imageOnboardingCell,
+                                          labelCellTitle: labelTitleOnboardingCell,
+                                          labelCellDescription: labelDescriptionOnboardingCell,
                                           index: index)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.imageCell.image = nil
-        labelCellTitle.text = nil
-        labelCellDescription.text = nil
+        self.imageOnboardingCell.image = nil
+        labelTitleOnboardingCell.text = nil
+        labelDescriptionOnboardingCell.text = nil
     }
 }

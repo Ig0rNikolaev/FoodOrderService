@@ -29,6 +29,8 @@ class AppCoordinator: Coordinator {
 
     private func showMainScene() {
         let controller = moduleFactory.createMainView()
-        navigationController.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        controller.modalTransitionStyle = .flipHorizontal
+        navigationController.present(controller, animated: true)
     }
 }
