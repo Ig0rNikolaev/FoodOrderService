@@ -53,7 +53,6 @@ class MainCategoryCell: UICollectionViewCell {
         contentView.addSubview(labelMainCell)
         contentView.addSubview(containerImageMaineCell)
         containerImageMaineCell.addSubview(imageMainCell)
-
     }
 
     func setupLayout() {

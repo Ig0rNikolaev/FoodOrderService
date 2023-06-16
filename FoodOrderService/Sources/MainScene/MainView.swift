@@ -82,9 +82,9 @@ class MainView: UIViewController {
         let gorupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.2))
         let groupLayout = NSCollectionLayoutGroup.vertical(layoutSize: gorupSize, subitem: itemLayout, count: 2)
         groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(15)
+        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 30, trailing: 6)
 
         let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
-        sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 20, trailing: 6)
         sectionLayout.boundarySupplementaryItems = [createSectionHeader()]
         sectionLayout.orthogonalScrollingBehavior = .groupPaging
         return sectionLayout
@@ -120,6 +120,7 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
                                                             for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
+        cell.shadow(cell: cell)
         return cell
     }
 

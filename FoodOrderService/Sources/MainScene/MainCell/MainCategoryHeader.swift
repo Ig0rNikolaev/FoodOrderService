@@ -44,7 +44,7 @@ class MainCategoryHeader: UICollectionReusableView {
         NSLayoutConstraint.activate([
             categoryHeader.centerYAnchor.constraint(equalTo: centerYAnchor.self),
             categoryHeader.centerXAnchor.constraint(equalTo: centerXAnchor.self),
-            categoryHeader.leftAnchor.constraint(equalTo: leftAnchor.self, constant: 20)
+            categoryHeader.leftAnchor.constraint(equalTo: leftAnchor.self, constant: 25)
         ])
     }
 
