@@ -15,9 +15,11 @@ class MainView: UIViewController {
     private lazy var collectionMain: UICollectionView = {
         let layout = createLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = .systemGray6
         collection.delegate = self
         collection.dataSource = self
         collection.register(MainCategoryCell.self, forCellWithReuseIdentifier: MainCategoryCell.identifier)
+        collection.register(MainCheffCell.self, forCellWithReuseIdentifier: MainCheffCell.identifier)
         collection.register(MainPopularCell.self, forCellWithReuseIdentifier: MainPopularCell.identifier)
         collection.register(MainCategoryHeader.self,
                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -38,15 +40,12 @@ class MainView: UIViewController {
 
     //: MARK: - Actions
 
-    @objc func addFood() {
-
-    }
+    @objc func addFood() {}
 
     //: MARK: - Setups
 
     private func setupView() {
         title = "Main View"
-        view.backgroundColor = .white
     }
 
     private func setupHierarchy() {
@@ -76,32 +75,18 @@ class MainView: UIViewController {
         return headerSection
     }
 
-    private func createSectionCategory() -> NSCollectionLayoutSection {
+    func createSections(gorupSizeWidth: CGFloat, gorupSizeHeight: CGFloat, groupCount: Int) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let gorupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.2))
-        let groupLayout = NSCollectionLayoutGroup.vertical(layoutSize: gorupSize, subitem: itemLayout, count: 2)
+        let gorupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(gorupSizeWidth), heightDimension: .fractionalHeight(gorupSizeHeight))
+        let groupLayout = NSCollectionLayoutGroup.vertical(layoutSize: gorupSize, subitem: itemLayout, count: groupCount)
         groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(15)
-        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 30, trailing: 6)
+        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 20, trailing: 6)
 
         let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
         sectionLayout.boundarySupplementaryItems = [createSectionHeader()]
-        sectionLayout.orthogonalScrollingBehavior = .groupPaging
-        return sectionLayout
-    }
-
-    private func createSectionPopular() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let gorupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.4))
-        let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: gorupSize, subitem: itemLayout, count: 1)
-        groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(15)
-        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 30, trailing: 6)
-
-        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
-        sectionLayout.boundarySupplementaryItems = [createSectionHeader()]
+        sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         sectionLayout.orthogonalScrollingBehavior = .groupPaging
         return sectionLayout
     }
@@ -110,13 +95,13 @@ class MainView: UIViewController {
         return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection in
             switch section {
             case 0:
-                return createSectionCategory()
+                return createSections(gorupSizeWidth: 0.39, gorupSizeHeight: 0.15, groupCount: 2)
             case 1:
-                return createSectionPopular()
+                return createSections(gorupSizeWidth: 0.47, gorupSizeHeight: 0.35, groupCount: 1)
             case 2:
-                return createSectionCategory()
+                return createSections(gorupSizeWidth: 0.8, gorupSizeHeight: 0.12, groupCount: 1)
             default:
-                return createSectionCategory()
+                return createSections(gorupSizeWidth: 0, gorupSizeHeight: 0, groupCount: 0)
             }
         }
     }
@@ -146,6 +131,12 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
                                                                        for: indexPath)  as? MainPopularCell else { return UICollectionViewCell() }
             cellPopular.shadow(cell: cellPopular)
             return cellPopular
+
+        case 2:
+            guard let cellCheff = collectionView.dequeueReusableCell(withReuseIdentifier: MainCheffCell.identifier,
+                                                                     for: indexPath) as? MainCheffCell else { return UICollectionViewCell() }
+            cellCheff.shadow(cell: cellCheff)
+            return cellCheff
 
         default:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,

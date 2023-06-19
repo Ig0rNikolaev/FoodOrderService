@@ -16,12 +16,14 @@ class MainCategoryCell: UICollectionViewCell {
     private lazy var containerImageCategory: UIView = {
         let container = UIView()
         container.backgroundColor = .systemBlue
+        container.layer.cornerRadius = 5
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
 
     private lazy var imageCategory: UIImageView = {
         let image = UIImageView()
+        image.layer.cornerRadius = 5
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -30,7 +32,7 @@ class MainCategoryCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -62,10 +64,10 @@ class MainCategoryCell: UICollectionViewCell {
             imageCategory.bottomAnchor.constraint(equalTo: containerImageCategory.bottomAnchor),
             imageCategory.leftAnchor.constraint(equalTo: containerImageCategory.leftAnchor),
 
-            containerImageCategory.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerImageCategory.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             containerImageCategory.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -100),
-            containerImageCategory.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            containerImageCategory.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            containerImageCategory.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            containerImageCategory.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
 
             labelCategory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             labelCategory.leftAnchor.constraint(equalTo: containerImageCategory.rightAnchor, constant: 10)

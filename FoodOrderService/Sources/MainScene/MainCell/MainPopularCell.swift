@@ -16,12 +16,14 @@ class MainPopularCell: UICollectionViewCell {
     private lazy var containerImagePopular: UIView = {
         let container = UIView()
         container.backgroundColor = .systemGreen
+        container.layer.cornerRadius = 5
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
 
     private lazy var imagePopular: UIImageView = {
         let image = UIImageView()
+        image.layer.cornerRadius = 5
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -37,9 +39,9 @@ class MainPopularCell: UICollectionViewCell {
 
     private lazy var lowLabelPopular: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .systemRed
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -48,7 +50,7 @@ class MainPopularCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .systemGray
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -94,9 +96,9 @@ class MainPopularCell: UICollectionViewCell {
             upLabelPopular.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             upLabelPopular.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
 
-            containerImagePopular.topAnchor.constraint(equalTo: upLabelPopular.bottomAnchor, constant: 10),
-            containerImagePopular.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            containerImagePopular.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            containerImagePopular.topAnchor.constraint(equalTo: upLabelPopular.bottomAnchor, constant: 5),
+            containerImagePopular.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
+            containerImagePopular.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
             containerImagePopular.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60),
 
             lowStackLabel.topAnchor.constraint(equalTo: containerImagePopular.bottomAnchor, constant: 10),

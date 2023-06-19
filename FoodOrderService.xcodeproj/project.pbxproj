@@ -70,10 +70,10 @@
 		DB135B0E2A3B50C8004A116D /* MainCell */ = {
 			isa = PBXGroup;
 			children = (
-				DB135B162A4093AA004A116D /* MainPopularCell.swift */,
 				DB135B0F2A3B50E4004A116D /* MainCategoryCell.swift */,
-				DB135B112A3B521C004A116D /* MainCategoryHeader.swift */,
+				DB135B162A4093AA004A116D /* MainPopularCell.swift */,
 				DB135B182A40C0DE004A116D /* MainCheffCell.swift */,
+				DB135B112A3B521C004A116D /* MainCategoryHeader.swift */,
 			);
 			path = MainCell;
 			sourceTree = "<group>";
