@@ -13,20 +13,20 @@ class MainCategoryCell: UICollectionViewCell {
 
     //: MARK: - UI Elements
 
-    private lazy var containerImageMaineCell: UIView = {
+    private lazy var containerImageCategory: UIView = {
         let container = UIView()
         container.backgroundColor = .systemBlue
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
 
-    private lazy var imageMainCell: UIImageView = {
+    private lazy var imageCategory: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
-    private lazy var labelMainCell: UILabel = {
+    private lazy var labelCategory: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
@@ -50,25 +50,25 @@ class MainCategoryCell: UICollectionViewCell {
     //: MARK: - Setups
 
     func setupHierarchy() {
-        contentView.addSubview(labelMainCell)
-        contentView.addSubview(containerImageMaineCell)
-        containerImageMaineCell.addSubview(imageMainCell)
+        contentView.addSubview(labelCategory)
+        contentView.addSubview(containerImageCategory)
+        containerImageCategory.addSubview(imageCategory)
     }
 
     func setupLayout() {
         NSLayoutConstraint.activate([
-            imageMainCell.topAnchor.constraint(equalTo: containerImageMaineCell.topAnchor),
-            imageMainCell.rightAnchor.constraint(equalTo: containerImageMaineCell.rightAnchor),
-            imageMainCell.bottomAnchor.constraint(equalTo: containerImageMaineCell.bottomAnchor),
-            imageMainCell.leftAnchor.constraint(equalTo: containerImageMaineCell.leftAnchor),
+            imageCategory.topAnchor.constraint(equalTo: containerImageCategory.topAnchor),
+            imageCategory.rightAnchor.constraint(equalTo: containerImageCategory.rightAnchor),
+            imageCategory.bottomAnchor.constraint(equalTo: containerImageCategory.bottomAnchor),
+            imageCategory.leftAnchor.constraint(equalTo: containerImageCategory.leftAnchor),
 
-            containerImageMaineCell.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerImageMaineCell.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -100),
-            containerImageMaineCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            containerImageMaineCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            containerImageCategory.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerImageCategory.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -100),
+            containerImageCategory.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerImageCategory.leftAnchor.constraint(equalTo: contentView.leftAnchor),
 
-            labelMainCell.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            labelMainCell.leftAnchor.constraint(equalTo: containerImageMaineCell.rightAnchor, constant: 10)
+            labelCategory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            labelCategory.leftAnchor.constraint(equalTo: containerImageCategory.rightAnchor, constant: 10)
         ])
     }
 

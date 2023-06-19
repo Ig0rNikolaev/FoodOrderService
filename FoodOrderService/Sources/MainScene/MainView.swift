@@ -18,6 +18,7 @@ class MainView: UIViewController {
         collection.delegate = self
         collection.dataSource = self
         collection.register(MainCategoryCell.self, forCellWithReuseIdentifier: MainCategoryCell.identifier)
+        collection.register(MainPopularCell.self, forCellWithReuseIdentifier: MainPopularCell.identifier)
         collection.register(MainCategoryHeader.self,
                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                             withReuseIdentifier: MainCategoryHeader.identifier)
@@ -75,7 +76,7 @@ class MainView: UIViewController {
         return headerSection
     }
 
-    private func createSection() -> NSCollectionLayoutSection {
+    private func createSectionCategory() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -90,17 +91,32 @@ class MainView: UIViewController {
         return sectionLayout
     }
 
+    private func createSectionPopular() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let gorupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.4))
+        let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: gorupSize, subitem: itemLayout, count: 1)
+        groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(15)
+        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 30, trailing: 6)
+
+        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
+        sectionLayout.boundarySupplementaryItems = [createSectionHeader()]
+        sectionLayout.orthogonalScrollingBehavior = .groupPaging
+        return sectionLayout
+    }
+
     private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection in
             switch section {
             case 0:
-                return createSection()
+                return createSectionCategory()
             case 1:
-                return createSection()
+                return createSectionPopular()
             case 2:
-                return createSection()
+                return createSectionCategory()
             default:
-                return createSection()
+                return createSectionCategory()
             }
         }
     }
@@ -118,10 +134,25 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
-                                                            for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
-        cell.shadow(cell: cell)
-        return cell
+
+        switch indexPath.section {
+        case 0:
+            guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
+                                                                        for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
+            cellCategory.shadow(cell: cellCategory)
+            return cellCategory
+        case 1:
+            guard let cellPopular = collectionView.dequeueReusableCell(withReuseIdentifier: MainPopularCell.identifier,
+                                                                       for: indexPath)  as? MainPopularCell else { return UICollectionViewCell() }
+            cellPopular.shadow(cell: cellPopular)
+            return cellPopular
+
+        default:
+            guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
+                                                                        for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
+            cellCategory.shadow(cell: cellCategory)
+            return cellCategory
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
