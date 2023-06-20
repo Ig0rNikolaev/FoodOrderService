@@ -24,6 +24,8 @@ class MainCategoryCell: UICollectionViewCell {
     private lazy var imageCategory: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

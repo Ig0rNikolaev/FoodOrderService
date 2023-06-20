@@ -10,6 +10,8 @@ import Foundation
 
 class MainView: UIViewController {
 
+    var mainViewModel: MainViewModelProtocol = MainViewModel()
+
     //: MARK: - UI Elements
 
     private lazy var collectionMain: UICollectionView = {
@@ -159,6 +161,8 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
         case 0:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainTopCell.identifier,
                                                                         for: indexPath) as? MainTopCell else { return UICollectionViewCell() }
+            mainViewModel.configureTopCell(cell: cellCategory, index: indexPath.row)
+            cellCategory.layer.cornerRadius = 10
             return cellCategory
         case 1:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
@@ -191,7 +195,6 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
                                                                            for: indexPath) as? MainCategoryHeader else { return UICollectionReusableView() }
         switch indexPath.section {
         case 0:
-            header.categoryHeader.text = " "
             return header
         case 1:
             header.categoryHeader.text = "Категории"

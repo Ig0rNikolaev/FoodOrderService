@@ -24,6 +24,8 @@ class MainPopularCell: UICollectionViewCell {
     private lazy var imagePopular: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

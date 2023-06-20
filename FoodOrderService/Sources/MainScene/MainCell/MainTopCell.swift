@@ -11,24 +11,29 @@ class MainTopCell: UICollectionViewCell {
 
     static let identifier = "MainTopCell"
 
+    var mainViewModel: MainViewModelProtocol = MainViewModel()
+
     //: MARK: - UI Elements
 
     private lazy var containerImageCategory: UIView = {
         let container = UIView()
         container.backgroundColor = .systemBlue
-        container.layer.cornerRadius = 5
+        container.layer.cornerRadius = 10
+        container.clipsToBounds = true
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
 
-    private lazy var imageCategory: UIImageView = {
+    lazy var imageCategory: UIImageView = {
         let image = UIImageView()
-        image.layer.cornerRadius = 5
+        image.layer.cornerRadius = 10
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
-    private lazy var labelCategory: UILabel = {
+        lazy var labelCategory: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
@@ -72,6 +77,10 @@ class MainTopCell: UICollectionViewCell {
             labelCategory.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             labelCategory.topAnchor.constraint(equalTo: containerImageCategory.bottomAnchor, constant: 5)
         ])
+    }
+
+    func setupTopCell(index: Int) {
+        mainViewModel.setupCellView(imageCell: imageCategory, labelCellDescription: labelCategory, index: index)
     }
 
     override func prepareForReuse() {
