@@ -9,8 +9,8 @@ import UIKit
 
 extension UICollectionViewCell {
     func shadow(cell: UICollectionViewCell) {
-        cell.layer.cornerRadius = 5
-        cell.contentView.layer.cornerRadius = 5
+        cell.layer.cornerRadius = 10
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true

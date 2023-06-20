@@ -15,9 +15,10 @@ class MainView: UIViewController {
     private lazy var collectionMain: UICollectionView = {
         let layout = createLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
         collection.delegate = self
         collection.dataSource = self
+        collection.backgroundColor = .systemGray6
+        collection.register(MainTopCell.self, forCellWithReuseIdentifier: MainTopCell.identifier)
         collection.register(MainCategoryCell.self, forCellWithReuseIdentifier: MainCategoryCell.identifier)
         collection.register(MainCheffCell.self, forCellWithReuseIdentifier: MainCheffCell.identifier)
         collection.register(MainPopularCell.self, forCellWithReuseIdentifier: MainPopularCell.identifier)
@@ -75,6 +76,27 @@ class MainView: UIViewController {
         return headerSection
     }
 
+    func createSectionsTop() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1))
+        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
+        itemLayout.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5)
+
+        let smallItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.5))
+        let smallItemLayout = NSCollectionLayoutItem(layoutSize: smallItemSize)
+        smallItemLayout.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+
+        let smallGropSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1))
+        let smallGroupLayout = NSCollectionLayoutGroup.vertical(layoutSize: smallGropSize, subitem: smallItemLayout, count: 2)
+
+        let gropSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(3/5))
+        let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: gropSize, subitems: [itemLayout, smallGroupLayout])
+        groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 10, trailing: 6)
+
+        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
+        sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        return sectionLayout
+    }
+
     func createSections(gorupSizeWidth: CGFloat, gorupSizeHeight: CGFloat, groupCount: Int) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -95,10 +117,12 @@ class MainView: UIViewController {
         return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection in
             switch section {
             case 0:
-                return createSections(gorupSizeWidth: 0.39, gorupSizeHeight: 0.15, groupCount: 2)
+                return createSectionsTop()
             case 1:
-                return createSections(gorupSizeWidth: 0.47, gorupSizeHeight: 0.35, groupCount: 1)
+                return createSections(gorupSizeWidth: 0.39, gorupSizeHeight: 0.15, groupCount: 2)
             case 2:
+                return createSections(gorupSizeWidth: 0.47, gorupSizeHeight: 0.35, groupCount: 1)
+            case 3:
                 return createSections(gorupSizeWidth: 0.8, gorupSizeHeight: 0.12, groupCount: 1)
             default:
                 return createSections(gorupSizeWidth: 0, gorupSizeHeight: 0, groupCount: 0)
@@ -111,28 +135,43 @@ class MainView: UIViewController {
 
 extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 10
+        case 2:
+            return 10
+        case 3:
+            return 10
+        default:
+            return 10
+        }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        4
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         switch indexPath.section {
         case 0:
+            guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainTopCell.identifier,
+                                                                        for: indexPath) as? MainTopCell else { return UICollectionViewCell() }
+            return cellCategory
+        case 1:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
                                                                         for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
             cellCategory.shadow(cell: cellCategory)
             return cellCategory
-        case 1:
+        case 2:
             guard let cellPopular = collectionView.dequeueReusableCell(withReuseIdentifier: MainPopularCell.identifier,
                                                                        for: indexPath)  as? MainPopularCell else { return UICollectionViewCell() }
             cellPopular.shadow(cell: cellPopular)
             return cellPopular
 
-        case 2:
+        case 3:
             guard let cellCheff = collectionView.dequeueReusableCell(withReuseIdentifier: MainCheffCell.identifier,
                                                                      for: indexPath) as? MainCheffCell else { return UICollectionViewCell() }
             cellCheff.shadow(cell: cellCheff)
@@ -152,12 +191,15 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
                                                                            for: indexPath) as? MainCategoryHeader else { return UICollectionReusableView() }
         switch indexPath.section {
         case 0:
-            header.categoryHeader.text = "Категории"
+            header.categoryHeader.text = " "
             return header
         case 1:
-            header.categoryHeader.text = "Популярные блюда"
+            header.categoryHeader.text = "Категории"
             return header
         case 2:
+            header.categoryHeader.text = "Популярные блюда"
+            return header
+        case 3:
             header.categoryHeader.text = "Блюда от шефа"
             return header
         default:
