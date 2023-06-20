@@ -117,14 +117,14 @@ class MainView: UIViewController {
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection in
-            switch section {
-            case 0:
+            switch SectionName(rawValue: section) {
+            case .top:
                 return createSectionsTop()
-            case 1:
+            case .category:
                 return createSections(gorupSizeWidth: 0.39, gorupSizeHeight: 0.15, groupCount: 2)
-            case 2:
+            case .popular:
                 return createSections(gorupSizeWidth: 0.47, gorupSizeHeight: 0.35, groupCount: 1)
-            case 3:
+            case .cheff:
                 return createSections(gorupSizeWidth: 0.8, gorupSizeHeight: 0.12, groupCount: 1)
             default:
                 return createSections(gorupSizeWidth: 0, gorupSizeHeight: 0, groupCount: 0)
@@ -137,14 +137,14 @@ class MainView: UIViewController {
 
 extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        switch SectionName(rawValue: section) {
+        case .top:
             return 3
-        case 1:
+        case .category:
             return 10
-        case 2:
+        case .popular:
             return 10
-        case 3:
+        case .cheff:
             return 10
         default:
             return 10
@@ -157,25 +157,25 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        switch indexPath.section {
-        case 0:
+        switch SectionName(rawValue: indexPath.section) {
+        case .top:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainTopCell.identifier,
                                                                         for: indexPath) as? MainTopCell else { return UICollectionViewCell() }
             mainViewModel.configureTopCell(cell: cellCategory, index: indexPath.row)
             cellCategory.layer.cornerRadius = 10
             return cellCategory
-        case 1:
+        case .category:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
                                                                         for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
             cellCategory.shadow(cell: cellCategory)
             return cellCategory
-        case 2:
+        case .popular:
             guard let cellPopular = collectionView.dequeueReusableCell(withReuseIdentifier: MainPopularCell.identifier,
                                                                        for: indexPath)  as? MainPopularCell else { return UICollectionViewCell() }
             cellPopular.shadow(cell: cellPopular)
             return cellPopular
 
-        case 3:
+        case .cheff:
             guard let cellCheff = collectionView.dequeueReusableCell(withReuseIdentifier: MainCheffCell.identifier,
                                                                      for: indexPath) as? MainCheffCell else { return UICollectionViewCell() }
             cellCheff.shadow(cell: cellCheff)
@@ -193,16 +193,16 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                            withReuseIdentifier: MainCategoryHeader.identifier,
                                                                            for: indexPath) as? MainCategoryHeader else { return UICollectionReusableView() }
-        switch indexPath.section {
-        case 0:
+        switch SectionName(rawValue: indexPath.section) {
+        case .top:
             return header
-        case 1:
+        case .category:
             header.categoryHeader.text = "Категории"
             return header
-        case 2:
+        case .popular:
             header.categoryHeader.text = "Популярные блюда"
             return header
-        case 3:
+        case .cheff:
             header.categoryHeader.text = "Блюда от шефа"
             return header
         default:

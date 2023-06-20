@@ -85,7 +85,7 @@ class MainTopCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        self.imageCategory.image = nil
+        labelCategory.text = nil
     }
 }
-

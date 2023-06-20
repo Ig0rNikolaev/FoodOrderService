@@ -11,3 +11,10 @@ struct MainTopModel {
     let description: String?
     let view: UIImage?
 }
+
+enum SectionName: Int {
+    case top
+    case category
+    case popular
+    case cheff
+}

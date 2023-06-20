@@ -112,4 +112,3 @@ class MainPopularCell: UICollectionViewCell {
         super.prepareForReuse()
     }
 }
-
