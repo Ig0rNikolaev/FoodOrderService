@@ -10,7 +10,7 @@ import Foundation
 
 class MainView: UIViewController {
 
-    var mainViewModel: MainViewModelProtocol = MainViewModel()
+    var mainViewModel: MainViewModelProtocol?
 
     //: MARK: - UI Elements
 
@@ -39,6 +39,7 @@ class MainView: UIViewController {
         setupHierarchy()
         setupLayout()
         navigationBar()
+        configuration()
     }
 
     //: MARK: - Actions
@@ -46,6 +47,10 @@ class MainView: UIViewController {
     @objc func addFood() {}
 
     //: MARK: - Setups
+
+    private func configuration() {
+        mainViewModel = MainViewModel()
+    }
 
     private func setupView() {
         title = "Main View"
@@ -161,7 +166,7 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
         case .top:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainTopCell.identifier,
                                                                         for: indexPath) as? MainTopCell else { return UICollectionViewCell() }
-            mainViewModel.configureTopCell(cell: cellCategory, index: indexPath.row)
+            mainViewModel?.configureTopCell(cell: cellCategory, index: indexPath.row)
             cellCategory.layer.cornerRadius = 10
             return cellCategory
         case .category:

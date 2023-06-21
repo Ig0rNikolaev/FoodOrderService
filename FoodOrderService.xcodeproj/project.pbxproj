@@ -29,6 +29,9 @@
 		DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F62A2A109F0056931C /* OnboardingView.swift */; };
 		DBE599FC2A2A10A00056931C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBE599FB2A2A10A00056931C /* Assets.xcassets */; };
 		DBE599FF2A2A10A00056931C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE599FD2A2A10A00056931C /* LaunchScreen.storyboard */; };
+		DBF493692A433E81007C9BD1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF493682A433E81007C9BD1 /* DetailView.swift */; };
+		DBF4936B2A434066007C9BD1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4936A2A434066007C9BD1 /* DetailViewModel.swift */; };
+		DBF4936D2A436A1F007C9BD1 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4936C2A436A1F007C9BD1 /* UIButton+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		DBE599FB2A2A10A00056931C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBE599FE2A2A10A00056931C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBE59A002A2A10A00056931C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF493682A433E81007C9BD1 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		DBF4936A2A434066007C9BD1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		DBF4936C2A436A1F007C9BD1 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				DB135B142A3C8038004A116D /* CollectionCell+Extension.swift */,
+				DBF4936C2A436A1F007C9BD1 /* UIButton+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -174,12 +181,13 @@
 			isa = PBXGroup;
 			children = (
 				DBE59A072A2A12490056931C /* App */,
-				DB135B132A3C8022004A116D /* Extensions */,
 				DB52C6562A39BDA200B9E556 /* Base */,
-				DB52C64C2A38E19600B9E556 /* Factorys */,
 				DB52C6432A38B0BE00B9E556 /* Coordinators */,
+				DB135B132A3C8022004A116D /* Extensions */,
+				DB52C64C2A38E19600B9E556 /* Factorys */,
 				DB7D2B032A30BB6100BDA872 /* OnboardingScene */,
 				DB52C63C2A38ABAB00B9E556 /* MainScene */,
+				DBF493672A433E09007C9BD1 /* DetailScene */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -201,6 +209,15 @@
 				DBE59A002A2A10A00056931C /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DBF493672A433E09007C9BD1 /* DetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				DBF493682A433E81007C9BD1 /* DetailView.swift */,
+				DBF4936A2A434066007C9BD1 /* DetailViewModel.swift */,
+			);
+			path = DetailScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,7 +299,9 @@
 				DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */,
 				DB3A475B2A3A3EEA00C1B5D3 /* MainViewModel.swift in Sources */,
 				DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */,
+				DBF4936B2A434066007C9BD1 /* DetailViewModel.swift in Sources */,
 				DB135B172A4093AA004A116D /* MainPopularCell.swift in Sources */,
+				DBF493692A433E81007C9BD1 /* DetailView.swift in Sources */,
 				DB52C64E2A38E1BA00B9E556 /* CoordinatorFactory.swift in Sources */,
 				DB52C6582A39BDB300B9E556 /* Coordinator.swift in Sources */,
 				DB135B192A40C0DE004A116D /* MainCheffCell.swift in Sources */,
@@ -292,6 +311,7 @@
 				DB52C6452A38B0F800B9E556 /* AppCoordinator.swift in Sources */,
 				DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */,
 				DB7D2B052A30BB7A00BDA872 /* OnboardingModel.swift in Sources */,
+				DBF4936D2A436A1F007C9BD1 /* UIButton+Extension.swift in Sources */,
 				DB135B122A3B521C004A116D /* MainCategoryHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

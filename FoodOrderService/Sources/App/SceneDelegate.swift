@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         // что бы настроить MainView (потом удалить!) 
-        let vc = MainView()
+        let vc = DetailView()
         let root = UINavigationController(rootViewController: vc)
         window?.rootViewController = root
 //        appCoordinator = CoordinatorFactory.createAppCoordinator(navigationController: UINavigationController())
