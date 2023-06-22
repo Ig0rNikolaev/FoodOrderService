@@ -15,14 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-
-        // что бы настроить MainView (потом удалить!) 
-        let vc = DetailView()
-        let root = UINavigationController(rootViewController: vc)
-        window?.rootViewController = root
-//        appCoordinator = CoordinatorFactory.createAppCoordinator(navigationController: UINavigationController())
-//        window?.rootViewController = appCoordinator?.navigationController
-//        appCoordinator?.start()
+        appCoordinator = CoordinatorFactory.createAppCoordinator(navigationController: UINavigationController())
+        window?.rootViewController = appCoordinator?.navigationController
+        appCoordinator?.start()
         window?.makeKeyAndVisible()
     }
 }

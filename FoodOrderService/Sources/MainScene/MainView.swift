@@ -8,8 +8,8 @@
 import UIKit
 import Foundation
 
-class MainView: UIViewController {
-
+class MainView: UIViewController, FlowController {
+    var goToNextScreen: SceneNavigation?
     var mainViewModel: MainViewModelProtocol?
 
     //: MARK: - UI Elements
@@ -44,7 +44,9 @@ class MainView: UIViewController {
 
     //: MARK: - Actions
 
-    @objc func addFood() {}
+    @objc func addFood() {
+
+    }
 
     //: MARK: - Setups
 
@@ -70,6 +72,7 @@ class MainView: UIViewController {
     }
 
     private func navigationBar() {
+        navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = .systemGray2
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Item", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(addFood))
@@ -140,7 +143,7 @@ class MainView: UIViewController {
 
 //: MARK: - Extension Delegate, DataSource
 
-extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SectionName(rawValue: section) {
         case .top:
@@ -214,5 +217,12 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
             header.categoryHeader.text = "default"
             return header
         }
+    }
+}
+
+extension MainView: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        mainViewModel?.transitionDetail(complitionHandler: goToNextScreen)
     }
 }

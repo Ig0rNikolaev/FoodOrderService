@@ -5,4 +5,12 @@
 //  Created by Игорь Николаев on 21.06.2023.
 //
 
-import Foundation
+import UIKit
+
+protocol DetailViewModelProtocol: AnyObject {
+
+}
+
+class DetailViewModel: DetailViewModelProtocol {
+
+}

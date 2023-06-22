@@ -29,8 +29,25 @@ class AppCoordinator: Coordinator {
 
     private func showMainScene() {
         let controller = moduleFactory.createMainView()
-        controller.modalPresentationStyle = .fullScreen
-        controller.modalTransitionStyle = .flipHorizontal
-        navigationController.present(controller, animated: true)
+        controller.goToNextScreen = { [weak self] in
+            self?.showDetailScene()
+        }
+        let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .curveEaseInOut]
+        UIView.transition(with: navigationController.view,
+                          duration: 0.5,
+                          options: transitionOptions,
+                          animations: nil,
+                          completion: nil)
+        
+        navigationController.pushViewController(controller, animated: false)
+    }
+
+    private func showDetailScene() {
+        let controller = moduleFactory.createDetailView()
+        let detailNavigationController = UINavigationController(rootViewController: controller)
+        if let sheet = detailNavigationController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+        navigationController.present(detailNavigationController, animated: true)
     }
 }

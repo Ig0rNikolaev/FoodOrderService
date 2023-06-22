@@ -7,10 +7,11 @@
 
 import UIKit
 
-protocol MainViewModelProtocol {
+protocol MainViewModelProtocol: AnyObject {
     var topCategory: [MainTopModel] { get set }
     func setupCellView(imageCell: UIImageView, labelCellDescription: UILabel, index: Int)
     func configureTopCell(cell: MainTopCell, index: Int)
+    func transitionDetail(complitionHandler: SceneNavigation?)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -26,5 +27,9 @@ class MainViewModel: MainViewModelProtocol {
 
     func configureTopCell(cell: MainTopCell, index: Int) {
         cell.setupTopCell(index: index)
+    }
+
+    func transitionDetail(complitionHandler: SceneNavigation?) {
+        complitionHandler?()
     }
 }
