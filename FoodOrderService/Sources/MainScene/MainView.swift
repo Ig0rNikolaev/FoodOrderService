@@ -55,7 +55,7 @@ class MainView: UIViewController, FlowController {
     }
 
     private func setupView() {
-        title = "Main View"
+        title = "Меню"
     }
 
     private func setupHierarchy() {
@@ -141,7 +141,7 @@ class MainView: UIViewController, FlowController {
     }
 }
 
-//: MARK: - Extension Delegate, DataSource
+//: MARK: - Extension DataSource
 
 extension MainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -220,9 +220,17 @@ extension MainView: UICollectionViewDataSource {
     }
 }
 
+//: MARK: - Extension Delegate
+
 extension MainView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        mainViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+
+        switch SectionName(rawValue: indexPath.section) {
+        case .category, .popular, .cheff:
+            mainViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+        default:
+            break
+        }
     }
 }

@@ -40,7 +40,7 @@ class DetailView: UIViewController {
 
     private lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
-        label.text = "риыорирви роивоив воиовиоив оиоивовв ававав вавава ававвав ваавав"
+        label.text = "риыорирви роивоив воиовиоив оиоивовв ававав вавава ававвав ваавариыорирви роивоив воиовиоив оиоивовв ававав вавава ававвав ваававриыорирви роивоив"
         label.textColor = .systemGray
         label.numberOfLines = .max
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,6 +71,14 @@ class DetailView: UIViewController {
         return button
     }()
 
+    private lazy var labelStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [labelTitleDetail, labelCaloriesDetail])
+        stack.axis = .horizontal
+        stack.distribution = .equalCentering
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     //: MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -94,9 +102,8 @@ class DetailView: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(imageDetail)
-        view.addSubview(labelTitleDetail)
+        view.addSubview(labelStack)
         view.addSubview(labelDescriptionDetail)
-        view.addSubview(labelCaloriesDetail)
         view.addSubview(textDetail)
         view.addSubview(buttonDetail)
     }
@@ -105,17 +112,17 @@ class DetailView: UIViewController {
         NSLayoutConstraint.activate([
             imageDetail.topAnchor.constraint(equalTo: view.topAnchor),
             imageDetail.rightAnchor.constraint(equalTo: view.rightAnchor),
-            imageDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -250),
             imageDetail.leftAnchor.constraint(equalTo: view.leftAnchor),
 
-            labelTitleDetail.topAnchor.constraint(equalTo: imageDetail.bottomAnchor, constant: 20),
-            labelTitleDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            labelStack.topAnchor.constraint(equalTo: imageDetail.bottomAnchor, constant: 20),
+            labelStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            labelStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
 
             labelDescriptionDetail.topAnchor.constraint(equalTo: labelTitleDetail.bottomAnchor, constant: 10),
             labelDescriptionDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             labelDescriptionDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
 
-            textDetail.topAnchor.constraint(equalTo: labelDescriptionDetail.bottomAnchor, constant: 10),
+            textDetail.topAnchor.constraint(equalTo: labelDescriptionDetail.bottomAnchor, constant: 20),
             textDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             textDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             textDetail.heightAnchor.constraint(equalToConstant: 50),
@@ -124,9 +131,7 @@ class DetailView: UIViewController {
             buttonDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             buttonDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             buttonDetail.heightAnchor.constraint(equalToConstant: 50),
-
-            labelCaloriesDetail.topAnchor.constraint(equalTo: imageDetail.bottomAnchor, constant: 20),
-            labelCaloriesDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            buttonDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
 }

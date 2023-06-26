@@ -32,6 +32,7 @@ class AppCoordinator: Coordinator {
         controller.goToNextScreen = { [weak self] in
             self?.showDetailScene()
         }
+        
         let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .curveEaseInOut]
         UIView.transition(with: navigationController.view,
                           duration: 0.5,
