@@ -136,6 +136,8 @@ final class OnboardingView: UIViewController, FlowController {
     }
 }
 
+//: MARK: - Extension DataSource
+
 extension OnboardingView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         onboardingViewModel?.slides.count ?? 0
@@ -148,6 +150,8 @@ extension OnboardingView: UICollectionViewDataSource {
         return cell
     }
 }
+
+//: MARK: - Extension Delegate
 
 extension OnboardingView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

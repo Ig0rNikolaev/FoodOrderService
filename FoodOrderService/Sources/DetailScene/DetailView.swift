@@ -86,14 +86,9 @@ class DetailView: UIViewController {
         setupView()
         setupHierarchy()
         setupLayout()
-        configuration()
     }
 
     //: MARK: - Setups
-
-    private func configuration() {
-
-    }
 
     private func setupView() {
         title = "Detail View"

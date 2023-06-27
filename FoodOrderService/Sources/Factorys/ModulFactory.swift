@@ -19,4 +19,8 @@ class ModulFactory {
     func createDetailView() -> DetailView {
         DetailView()
     }
+
+    func createDishlistView() -> DishlistView {
+        DishlistView()
+    }
 }

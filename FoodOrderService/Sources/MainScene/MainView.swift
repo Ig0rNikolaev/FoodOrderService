@@ -227,7 +227,9 @@ extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         switch SectionName(rawValue: indexPath.section) {
-        case .category, .popular, .cheff:
+        case .category:
+            print("Тут должен быть переход на Dishlist")
+        case .popular, .cheff:
             mainViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         default:
             break
