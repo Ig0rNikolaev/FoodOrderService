@@ -35,6 +35,7 @@
 		DBF7EE442A4A162200D76518 /* DishlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE432A4A162200D76518 /* DishlistCell.swift */; };
 		DBF7EE4C2A4B52DF00D76518 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4B2A4B52DF00D76518 /* AppCoordinator.swift */; };
 		DBF7EE4E2A4B543200D76518 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4D2A4B543200D76518 /* OnboardingCoordinator.swift */; };
+		DBF7EE502A4C4A5100D76518 /* DishlistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		DBF7EE432A4A162200D76518 /* DishlistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishlistCell.swift; sourceTree = "<group>"; };
 		DBF7EE4B2A4B52DF00D76518 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DBF7EE4D2A4B543200D76518 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishlistViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			children = (
 				DBF7EE422A4A160300D76518 /* DishlistCell */,
 				DBF7EE402A4A0FEB00D76518 /* DishlistView.swift */,
+				DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */,
 			);
 			path = DishlistScene;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				DB3A475B2A3A3EEA00C1B5D3 /* MainViewModel.swift in Sources */,
 				DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */,
 				DB135B172A4093AA004A116D /* MainPopularCell.swift in Sources */,
+				DBF7EE502A4C4A5100D76518 /* DishlistViewModel.swift in Sources */,
 				DBF493692A433E81007C9BD1 /* DetailView.swift in Sources */,
 				DB52C64E2A38E1BA00B9E556 /* CoordinatorFactory.swift in Sources */,
 				DB52C6582A39BDB300B9E556 /* Coordinator.swift in Sources */,

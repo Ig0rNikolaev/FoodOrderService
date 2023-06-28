@@ -91,7 +91,6 @@ class DetailView: UIViewController {
     //: MARK: - Setups
 
     private func setupView() {
-        title = "Detail View"
         view.backgroundColor = .systemGray6
     }
 

@@ -48,6 +48,9 @@ class MainCoodinator: Coordinator {
     
     private func showDishlistScene() {
         let controller = moduleFactory.createDishlistView()
+        controller.goToNextScreen = { [weak self] in
+            self?.showDetailScene()
+        }
         navigationController.pushViewController(controller, animated: true)
     }
 }

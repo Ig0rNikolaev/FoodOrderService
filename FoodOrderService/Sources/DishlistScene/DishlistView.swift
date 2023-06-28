@@ -7,8 +7,10 @@
 
 import UIKit
 
-class DishlistView: UIViewController {
-    
+class DishlistView: UIViewController, FlowController {
+    var goToNextScreen: SceneNavigation?
+    var dishlistViewModel: DishlistViewModelProtocol?
+
     //: MARK: - UI Elements
 
     private lazy var dishlist: UITableView = {
@@ -26,9 +28,14 @@ class DishlistView: UIViewController {
         super.viewDidLoad()
         setupHierarchy()
         setupLayout()
+        configuration()
     }
     
     //: MARK: - Setups
+
+    private func configuration() {
+        dishlistViewModel = DishlistViewModel()
+    }
     
     private func setupHierarchy() {
         view.addSubview(dishlist)
@@ -67,5 +74,9 @@ extension DishlistView: UITableViewDataSource {
 extension DishlistView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         65
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
     }
 }
