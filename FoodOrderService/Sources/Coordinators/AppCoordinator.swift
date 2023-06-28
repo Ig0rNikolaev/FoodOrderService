@@ -2,53 +2,41 @@
 //  AppCoordinator.swift
 //  FoodOrderService
 //
-//  Created by Игорь Николаев on 13.06.2023.
+//  Created by Игорь Николаев on 27.06.2023.
 //
 
+import Foundation
 import UIKit
 
 class AppCoordinator: Coordinator {
+    var flowComplitionHandler: CoodinatorHandler?
     var navigationController: UINavigationController
-    private let moduleFactory = ModulFactory()
-    
+    let moduleFactory = ModulFactory()
+    private var childCoordinators = [Coordinator]()
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
+
     func start() {
-        showOnboardingScene()
-    }
-    
-    private func showOnboardingScene() {
-        let controller = moduleFactory.createOnboardingView()
-        controller.goToNextScreen = { [weak self] in
-            self?.showMainScene()
-        }
-        navigationController.pushViewController(controller, animated: true)
+        showOnboardingFlow()
     }
 
-    private func showMainScene() {
-        let controller = moduleFactory.createMainView()
-        controller.goToNextScreen = { [weak self] in
-            self?.showDetailScene()
+    private func showOnboardingFlow() {
+        let onboardingCoordinator = CoordinatorFactory.createOnboardingCoordinator(navigationController: navigationController)
+        childCoordinators.append(onboardingCoordinator)
+        onboardingCoordinator.flowComplitionHandler = { [weak self] in
+            self?.showMainFlow()
         }
-        
-        let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .curveEaseInOut]
-        UIView.transition(with: navigationController.view,
-                          duration: 0.5,
-                          options: transitionOptions,
-                          animations: nil,
-                          completion: nil)
-        
-        navigationController.pushViewController(controller, animated: false)
-    }
+        onboardingCoordinator.start()
+     }
 
-    private func showDetailScene() {
-        let controller = moduleFactory.createDetailView()
-        let detailNavigationController = UINavigationController(rootViewController: controller)
-        if let sheet = detailNavigationController.sheetPresentationController {
-            sheet.detents = [.large()]
+    private func showMainFlow() {
+        let mainCoordinator = CoordinatorFactory.createMainCoordinator(navigationController: navigationController)
+        childCoordinators.append(mainCoordinator)
+        mainCoordinator.flowComplitionHandler = { [weak self] in
+            self?.flowComplitionHandler?()
         }
-        navigationController.present(detailNavigationController, animated: true)
-    }
+        mainCoordinator.start()
+     }
 }

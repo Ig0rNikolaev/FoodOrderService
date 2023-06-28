@@ -12,7 +12,7 @@ class DishlistView: UIViewController {
     //: MARK: - UI Elements
 
     private lazy var dishlist: UITableView = {
-        let dishlist = UITableView(frame: .zero, style: .plain)
+        let dishlist = UITableView(frame: .zero, style: .insetGrouped)
         dishlist.register(DishlistCell.self, forCellReuseIdentifier: DishlistCell.identifier)
         dishlist.delegate = self
         dishlist.dataSource = self
@@ -56,10 +56,16 @@ extension DishlistView: UITableViewDataSource {
                                                        for: indexPath) as? DishlistCell else { return UITableViewCell() }
         return cell
     }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        10
+    }
 }
 
 //: MARK: - Extension Delegate
 
 extension DishlistView: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        65
+    }
 }

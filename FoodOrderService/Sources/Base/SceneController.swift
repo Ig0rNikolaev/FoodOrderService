@@ -12,3 +12,8 @@ typealias SceneNavigation = () -> ()
 protocol FlowController {
     var goToNextScreen: SceneNavigation? { get set }
 }
+
+protocol CollectionController {
+    associatedtype T
+    var goToCollection: ((T) -> ())? { get set }
+}

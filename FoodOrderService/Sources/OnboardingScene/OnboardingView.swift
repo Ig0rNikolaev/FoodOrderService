@@ -8,7 +8,6 @@
 import UIKit
 
 final class OnboardingView: UIViewController, FlowController {
-
     var goToNextScreen: SceneNavigation?
     var onboardingViewModel: OnboardingViewModelProtocol?
     var currentPage = 0 {

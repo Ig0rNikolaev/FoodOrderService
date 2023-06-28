@@ -18,6 +18,7 @@ class DishlistCell: UITableViewCell {
         image.backgroundColor = .blue
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
+        image.layer.cornerRadius = 5
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -25,8 +26,9 @@ class DishlistCell: UITableViewCell {
     private lazy var dishTopLabel: UILabel = {
         let label = UILabel()
         label.text = "Label"
+        label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,7 +38,7 @@ class DishlistCell: UITableViewCell {
         label.text = "Label"
         label.textColor = .systemGray
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -71,11 +73,14 @@ class DishlistCell: UITableViewCell {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            dishImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dishImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            dishImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            dishImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            dishImage.widthAnchor.constraint(equalToConstant: 45),
+            dishImage.heightAnchor.constraint(equalToConstant: 45),
 
-            stackLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            stackLabel.leftAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
+            stackLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackLabel.leftAnchor.constraint(equalTo: dishImage.rightAnchor, constant: 20)
+
         ])
     }
 }

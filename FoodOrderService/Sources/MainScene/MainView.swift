@@ -8,7 +8,8 @@
 import UIKit
 import Foundation
 
-class MainView: UIViewController, FlowController {
+class MainView: UIViewController, FlowController, CollectionController {
+    var goToCollection: ((SectionName) -> ())?
     var goToNextScreen: SceneNavigation?
     var mainViewModel: MainViewModelProtocol?
 
@@ -225,12 +226,9 @@ extension MainView: UICollectionViewDataSource {
 extension MainView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         switch SectionName(rawValue: indexPath.section) {
-        case .category:
-            print("Тут должен быть переход на Dishlist")
-        case .popular, .cheff:
-            mainViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+        case .category, .popular, .cheff:
+            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
         default:
             break
         }

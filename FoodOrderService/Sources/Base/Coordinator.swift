@@ -7,7 +7,10 @@
 
 import UIKit
 
+typealias CoodinatorHandler = () -> ()
+
 protocol Coordinator: AnyObject {
+    var flowComplitionHandler: CoodinatorHandler? { get set }
     var navigationController: UINavigationController { get set }
     func start()
 }
