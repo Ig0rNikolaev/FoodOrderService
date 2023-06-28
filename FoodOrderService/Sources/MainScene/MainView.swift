@@ -46,7 +46,7 @@ class MainView: UIViewController, FlowController, CollectionController {
     //: MARK: - Actions
 
     @objc func addFood() {
-
+        mainViewModel?.transitionOrder(complitionHandler: goToNextScreen)
     }
 
     //: MARK: - Setups

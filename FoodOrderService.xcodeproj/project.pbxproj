@@ -36,6 +36,8 @@
 		DBF7EE4C2A4B52DF00D76518 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4B2A4B52DF00D76518 /* AppCoordinator.swift */; };
 		DBF7EE4E2A4B543200D76518 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4D2A4B543200D76518 /* OnboardingCoordinator.swift */; };
 		DBF7EE502A4C4A5100D76518 /* DishlistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */; };
+		DBF7EE5C2A4C67E500D76518 /* OrderlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE5B2A4C67E500D76518 /* OrderlistView.swift */; };
+		DBF7EE5E2A4C68F700D76518 /* OrdelistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7EE5D2A4C68F700D76518 /* OrdelistViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		DBF7EE4B2A4B52DF00D76518 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DBF7EE4D2A4B543200D76518 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishlistViewModel.swift; sourceTree = "<group>"; };
+		DBF7EE5B2A4C67E500D76518 /* OrderlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderlistView.swift; sourceTree = "<group>"; };
+		DBF7EE5D2A4C68F700D76518 /* OrdelistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdelistViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +203,7 @@
 				DB52C63C2A38ABAB00B9E556 /* MainScene */,
 				DBF493672A433E09007C9BD1 /* DetailScene */,
 				DBF7EE3F2A4A0F9D00D76518 /* DishlistScene */,
+				DBF7EE512A4C5C1900D76518 /* OrderlistScene */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -233,19 +238,28 @@
 		DBF7EE3F2A4A0F9D00D76518 /* DishlistScene */ = {
 			isa = PBXGroup;
 			children = (
-				DBF7EE422A4A160300D76518 /* DishlistCell */,
+				DBF7EE422A4A160300D76518 /* DishlistCells */,
 				DBF7EE402A4A0FEB00D76518 /* DishlistView.swift */,
 				DBF7EE4F2A4C4A5100D76518 /* DishlistViewModel.swift */,
 			);
 			path = DishlistScene;
 			sourceTree = "<group>";
 		};
-		DBF7EE422A4A160300D76518 /* DishlistCell */ = {
+		DBF7EE422A4A160300D76518 /* DishlistCells */ = {
 			isa = PBXGroup;
 			children = (
 				DBF7EE432A4A162200D76518 /* DishlistCell.swift */,
 			);
-			path = DishlistCell;
+			path = DishlistCells;
+			sourceTree = "<group>";
+		};
+		DBF7EE512A4C5C1900D76518 /* OrderlistScene */ = {
+			isa = PBXGroup;
+			children = (
+				DBF7EE5B2A4C67E500D76518 /* OrderlistView.swift */,
+				DBF7EE5D2A4C68F700D76518 /* OrdelistViewModel.swift */,
+			);
+			path = OrderlistScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +345,7 @@
 				DB7D2B0B2A30C71B00BDA872 /* OnboardingCell.swift in Sources */,
 				DB135B172A4093AA004A116D /* MainPopularCell.swift in Sources */,
 				DBF7EE502A4C4A5100D76518 /* DishlistViewModel.swift in Sources */,
+				DBF7EE5C2A4C67E500D76518 /* OrderlistView.swift in Sources */,
 				DBF493692A433E81007C9BD1 /* DetailView.swift in Sources */,
 				DB52C64E2A38E1BA00B9E556 /* CoordinatorFactory.swift in Sources */,
 				DB52C6582A39BDB300B9E556 /* Coordinator.swift in Sources */,
@@ -338,6 +353,7 @@
 				DB135B192A40C0DE004A116D /* MainCheffCell.swift in Sources */,
 				DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */,
 				DB135B152A3C8038004A116D /* CollectionCell+Extension.swift in Sources */,
+				DBF7EE5E2A4C68F700D76518 /* OrdelistViewModel.swift in Sources */,
 				DBF7EE442A4A162200D76518 /* DishlistCell.swift in Sources */,
 				DB135B0D2A3B501A004A116D /* MainModel.swift in Sources */,
 				DB52C6452A38B0F800B9E556 /* MainCoodinator.swift in Sources */,

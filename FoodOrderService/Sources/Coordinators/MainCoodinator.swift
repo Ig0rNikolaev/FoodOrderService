@@ -27,6 +27,10 @@ class MainCoodinator: Coordinator {
             section == .category ? self?.showDishlistScene() : self?.showDetailScene()
         }
         
+        controller.goToNextScreen = { [weak self] in
+            self?.showOrderlistScene()
+        }
+        
         let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .curveEaseInOut]
         UIView.transition(with: navigationController.view,
                           duration: 0.5,
@@ -48,6 +52,14 @@ class MainCoodinator: Coordinator {
     
     private func showDishlistScene() {
         let controller = moduleFactory.createDishlistView()
+        controller.goToNextScreen = { [weak self] in
+            self?.showDetailScene()
+        }
+        navigationController.pushViewController(controller, animated: true)
+    }
+    
+    private func showOrderlistScene() {
+        let controller = moduleFactory.createOrderView()
         controller.goToNextScreen = { [weak self] in
             self?.showDetailScene()
         }

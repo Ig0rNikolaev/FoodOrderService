@@ -12,6 +12,7 @@ protocol MainViewModelProtocol: AnyObject {
     func setupCellView(imageCell: UIImageView, labelCellDescription: UILabel, index: Int)
     func configureTopCell(cell: MainTopCell, index: Int)
     func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
+    func transitionOrder(complitionHandler: SceneNavigation?)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -31,5 +32,9 @@ class MainViewModel: MainViewModelProtocol {
 
     func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?) {
         complitionHandler?(index ?? .category)
+    }
+
+    func transitionOrder(complitionHandler: SceneNavigation?) {
+        complitionHandler?()
     }
 }
