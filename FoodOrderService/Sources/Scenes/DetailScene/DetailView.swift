@@ -14,7 +14,7 @@ class DetailView: UIViewController {
 
     private lazy var imageDetail: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.backgroundColor = .blue
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +24,7 @@ class DetailView: UIViewController {
     private lazy var labelTitleDetail: UILabel = {
         let label = UILabel()
         label.text = "Title"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = .max
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +41,7 @@ class DetailView: UIViewController {
 
     private lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
-        label.text = "риыорирви роивоив воиовиоив оиоивовв ававав вавава ававвав ваавариыорирви роивоив воиовиоив оиоивовв ававав вавава ававвав ваававриыорирви роивоив"
+        label.text = "Some text"
         label.textColor = .systemGray
         label.numberOfLines = .max
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +56,7 @@ class DetailView: UIViewController {
         text.layer.cornerRadius = 5
         text.borderStyle = .roundedRect
         text.attributedPlaceholder = NSAttributedString(string: text.placeholder ?? "Введите Ваше имя",
-                                                             attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+                                                        attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -127,5 +128,12 @@ class DetailView: UIViewController {
             buttonDetail.heightAnchor.constraint(equalToConstant: 50),
             buttonDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
+    }
+
+    func setupDetail(dish: Dish?) {
+        labelTitleDetail.text = dish?.name ?? ""
+        labelDescriptionDetail.text = dish?.description ?? ""
+        labelCaloriesDetail.text = dish?.formattedCalories ?? ""
+        CreatureImageURL.shared.getDataImage(urlRequest: dish?.image, imageFood: imageDetail)
     }
 }

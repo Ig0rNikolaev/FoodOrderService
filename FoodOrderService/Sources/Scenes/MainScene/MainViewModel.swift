@@ -26,6 +26,7 @@ class MainViewModel: MainViewModelProtocol {
         labelCellDescription.text = topCategory[index].description
     }
 
+
     func configureTopCell(cell: MainTopCell, index: Int) {
         cell.setupTopCell(index: index)
     }

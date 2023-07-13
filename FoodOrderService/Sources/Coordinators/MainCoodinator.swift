@@ -11,8 +11,7 @@ class MainCoodinator: Coordinator {
     var flowComplitionHandler: CoodinatorHandler?
     var navigationController: UINavigationController
     private let moduleFactory = ModulFactory()
-    var index: SectionName?
-    
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -26,7 +25,7 @@ class MainCoodinator: Coordinator {
         controller.goToCollection = { [weak self] section in
             section == .category ? self?.showDishlistScene() : self?.showDetailScene()
         }
-        
+
         controller.goToNextScreen = { [weak self] in
             self?.showOrderlistScene()
         }
@@ -40,7 +39,7 @@ class MainCoodinator: Coordinator {
         
         navigationController.pushViewController(controller, animated: false)
     }
-    
+
     private func showDetailScene() {
         let controller = moduleFactory.createDetailView()
         let detailNavigationController = UINavigationController(rootViewController: controller)

@@ -37,7 +37,7 @@ class MainTopCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -85,7 +85,5 @@ class MainTopCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.imageCategory.image = nil
-        labelCategory.text = nil
     }
 }

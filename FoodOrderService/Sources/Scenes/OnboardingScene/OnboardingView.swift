@@ -65,8 +65,7 @@ final class OnboardingView: UIViewController, FlowController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
-    
+
     //: MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -77,6 +76,8 @@ final class OnboardingView: UIViewController, FlowController {
         configuration()
         numberOfPages()
     }
+
+
     
     //: MARK: - Setups
     

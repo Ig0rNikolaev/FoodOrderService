@@ -15,13 +15,12 @@ class MainCategoryCell: UICollectionViewCell {
 
     private lazy var containerImageCategory: UIView = {
         let container = UIView()
-        container.backgroundColor = .systemBlue
         container.layer.cornerRadius = 5
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
 
-    private lazy var imageCategory: UIImageView = {
+        lazy var imageCategory: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
@@ -30,11 +29,11 @@ class MainCategoryCell: UICollectionViewCell {
         return image
     }()
 
-    private lazy var labelCategory: UILabel = {
+        lazy var labelCategory: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,12 +71,17 @@ class MainCategoryCell: UICollectionViewCell {
             containerImageCategory.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
 
             labelCategory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            labelCategory.leftAnchor.constraint(equalTo: containerImageCategory.rightAnchor, constant: 10)
+            labelCategory.leftAnchor.constraint(equalTo: containerImageCategory.rightAnchor, constant: 10),
+            labelCategory.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
         ])
+    }
+
+    func setup(category: DishCategory) {
+        labelCategory.text = category.name
+        CreatureImageURL.shared.getDataImage(urlRequest: category.image, imageFood: imageCategory)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        
     }
 }

@@ -21,20 +21,20 @@ class MainPopularCell: UICollectionViewCell {
         return container
     }()
 
-    private lazy var imagePopular: UIImageView = {
+        lazy var imagePopular: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
+            image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
-    private lazy var upLabelPopular: UILabel = {
+        lazy var upLabelPopular: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,16 +43,16 @@ class MainPopularCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .systemRed
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private lazy var secondLowLabelPopular: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray
+        label.textColor = .secondaryLabel
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -105,7 +105,15 @@ class MainPopularCell: UICollectionViewCell {
 
             lowStackLabel.topAnchor.constraint(equalTo: containerImagePopular.bottomAnchor, constant: 10),
             lowStackLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            lowStackLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
         ])
+    }
+
+    func setup(category: Dish) {
+        upLabelPopular.text = category.name
+        lowLabelPopular.text = category.formattedCalories
+        secondLowLabelPopular.text = category.description
+        CreatureImageURL.shared.getDataImage(urlRequest: category.image, imageFood: imagePopular)
     }
 
     override func prepareForReuse() {

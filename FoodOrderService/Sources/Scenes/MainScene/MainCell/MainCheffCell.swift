@@ -27,7 +27,7 @@ class MainCheffCell: UICollectionViewCell {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -36,16 +36,16 @@ class MainCheffCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private lazy var middleLabelCheff: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray
+        label.textColor = .secondaryLabel
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +54,7 @@ class MainCheffCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .systemRed
         label.text = "Text"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,12 +101,19 @@ class MainCheffCell: UICollectionViewCell {
             containerImageCheff.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
 
             stackLabelCheff.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stackLabelCheff.leftAnchor.constraint(equalTo: containerImageCheff.rightAnchor, constant: 10)
+            stackLabelCheff.leftAnchor.constraint(equalTo: containerImageCheff.rightAnchor, constant: 10),
+            stackLabelCheff.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
         ])
+    }
+
+    func setup(category: Dish) {
+        topLabelCheff.text = category.name
+        middleLabelCheff.text = category.description
+        lowLabelCheff.text = category.formattedCalories
+        CreatureImageURL.shared.getDataImage(urlRequest: category.image, imageFood: imageCheff)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
     }
 }

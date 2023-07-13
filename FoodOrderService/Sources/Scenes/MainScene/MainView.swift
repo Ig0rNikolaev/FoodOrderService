@@ -10,8 +10,14 @@ import Foundation
 
 class MainView: UIViewController, FlowController, CollectionController {
     var goToCollection: ((SectionName) -> ())?
+
     var goToNextScreen: SceneNavigation?
     var mainViewModel: MainViewModelProtocol?
+
+    var categories: [DishCategory] = []
+    var populars: [Dish] = []
+    var specials: [Dish] = []
+    var dish: Dish?
 
     //: MARK: - UI Elements
 
@@ -41,6 +47,18 @@ class MainView: UIViewController, FlowController, CollectionController {
         setupLayout()
         navigationBar()
         configuration()
+
+        NetworkService.shared.fetchAllDishes { [weak self] result in
+            switch result {
+            case .success(let success):
+                self?.categories = success.categories ?? []
+                self?.populars = success.populars ?? []
+                self?.specials = success.specials ?? []
+                self?.collectionMain.reloadData()
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
 
     //: MARK: - Actions
@@ -148,13 +166,13 @@ extension MainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SectionName(rawValue: section) {
         case .top:
-            return 3
+            return mainViewModel?.topCategory.count ?? 0
         case .category:
-            return 10
+            return categories.count
         case .popular:
-            return 10
+            return populars.count
         case .cheff:
-            return 10
+            return specials.count
         default:
             return 10
         }
@@ -165,31 +183,31 @@ extension MainView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         switch SectionName(rawValue: indexPath.section) {
         case .top:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainTopCell.identifier,
                                                                         for: indexPath) as? MainTopCell else { return UICollectionViewCell() }
-            mainViewModel?.configureTopCell(cell: cellCategory, index: indexPath.row)
+            mainViewModel?.configureTopCell(cell: cellCategory, index: indexPath.item)
             cellCategory.layer.cornerRadius = 10
             return cellCategory
         case .category:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
                                                                         for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
+            cellCategory.setup(category: categories[indexPath.row])
             cellCategory.shadow(cell: cellCategory)
             return cellCategory
         case .popular:
             guard let cellPopular = collectionView.dequeueReusableCell(withReuseIdentifier: MainPopularCell.identifier,
                                                                        for: indexPath)  as? MainPopularCell else { return UICollectionViewCell() }
+            cellPopular.setup(category: populars[indexPath.row])
             cellPopular.shadow(cell: cellPopular)
             return cellPopular
-
         case .cheff:
             guard let cellCheff = collectionView.dequeueReusableCell(withReuseIdentifier: MainCheffCell.identifier,
                                                                      for: indexPath) as? MainCheffCell else { return UICollectionViewCell() }
+            cellCheff.setup(category: specials[indexPath.row])
             cellCheff.shadow(cell: cellCheff)
             return cellCheff
-
         default:
             guard let cellCategory = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCell.identifier,
                                                                         for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
@@ -226,8 +244,19 @@ extension MainView: UICollectionViewDataSource {
 extension MainView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
         switch SectionName(rawValue: indexPath.section) {
-        case .category, .popular, .cheff:
+        case .category:
+            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+        case .popular:
+            let controller = DetailView()
+            controller.setupDetail(dish: populars[indexPath.row])
+
+            if let sheet = controller.sheetPresentationController {
+                sheet.detents = [.large()]
+            }
+            navigationController?.present(controller, animated: true)
+        case .cheff:
             mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
         default:
             break
