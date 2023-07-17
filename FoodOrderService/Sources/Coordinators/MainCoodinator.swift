@@ -17,15 +17,21 @@ class MainCoodinator: Coordinator {
     }
     
     func start() {
-        showMainScene()
+        showMainScene(index: IndexPath())
     }
     
-    private func showMainScene() {
+    private func showMainScene(index: IndexPath) {
         let controller = moduleFactory.createMainView()
+        
         controller.goToCollection = { [weak self] section in
-            section == .category ? self?.showDishlistScene() : self?.showDetailScene()
+            if section == .category {
+                self?.showDishlistScene()
+            } else {
+                controller.goToDetail = { [weak self] dishs in
+                    self?.showDetailScene(dishs: dishs)
+                }
+            }
         }
-
         controller.goToNextScreen = { [weak self] in
             self?.showOrderlistScene()
         }
@@ -40,19 +46,23 @@ class MainCoodinator: Coordinator {
         navigationController.pushViewController(controller, animated: false)
     }
 
-    private func showDetailScene() {
+    private func showDetailScene(dishs: Dish?) {
         let controller = moduleFactory.createDetailView()
+        controller.dish = dishs
+
         let detailNavigationController = UINavigationController(rootViewController: controller)
         if let sheet = detailNavigationController.sheetPresentationController {
             sheet.detents = [.large()]
         }
         navigationController.present(detailNavigationController, animated: true)
     }
+
+
     
     private func showDishlistScene() {
         let controller = moduleFactory.createDishlistView()
         controller.goToNextScreen = { [weak self] in
-            self?.showDetailScene()
+            self?.showDetailScene(dishs: nil)
         }
         navigationController.pushViewController(controller, animated: true)
     }
@@ -60,8 +70,11 @@ class MainCoodinator: Coordinator {
     private func showOrderlistScene() {
         let controller = moduleFactory.createOrderView()
         controller.goToNextScreen = { [weak self] in
-            self?.showDetailScene()
+            self?.showDetailScene(dishs: nil)
         }
         navigationController.pushViewController(controller, animated: true)
     }
 }
+
+
+

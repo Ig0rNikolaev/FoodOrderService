@@ -13,6 +13,7 @@ protocol MainViewModelProtocol: AnyObject {
     func configureTopCell(cell: MainTopCell, index: Int)
     func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
     func transitionOrder(complitionHandler: SceneNavigation?)
+    func transitionDetailView(complitionHandler: ((Dish?) -> ())?, array: Dish?)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -33,6 +34,10 @@ class MainViewModel: MainViewModelProtocol {
 
     func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?) {
         complitionHandler?(index ?? .category)
+    }
+
+    func transitionDetailView(complitionHandler: ((Dish?) -> ())?, array: Dish?) {
+        complitionHandler?(array)
     }
 
     func transitionOrder(complitionHandler: SceneNavigation?) {

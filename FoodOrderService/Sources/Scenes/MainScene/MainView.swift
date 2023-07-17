@@ -8,16 +8,15 @@
 import UIKit
 import Foundation
 
-class MainView: UIViewController, FlowController, CollectionController {
+class MainView: UIViewController, FlowController, CollectionController, DetailController {
     var goToCollection: ((SectionName) -> ())?
-
+    var goToDetail: ((Dish?) -> ())?
     var goToNextScreen: SceneNavigation?
     var mainViewModel: MainViewModelProtocol?
 
     var categories: [DishCategory] = []
     var populars: [Dish] = []
     var specials: [Dish] = []
-    var dish: Dish?
 
     //: MARK: - UI Elements
 
@@ -244,20 +243,15 @@ extension MainView: UICollectionViewDataSource {
 extension MainView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         switch SectionName(rawValue: indexPath.section) {
         case .category:
             mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
         case .popular:
-            let controller = DetailView()
-            controller.setupDetail(dish: populars[indexPath.row])
-
-            if let sheet = controller.sheetPresentationController {
-                sheet.detents = [.large()]
-            }
-            navigationController?.present(controller, animated: true)
+            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionDetailView(complitionHandler: goToDetail, array: populars[indexPath.row])
         case .cheff:
             mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionDetailView(complitionHandler: goToDetail, array: specials[indexPath.row])
         default:
             break
         }

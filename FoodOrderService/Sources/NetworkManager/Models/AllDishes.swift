@@ -14,7 +14,7 @@ struct AllDishes: Decodable {
 }
 
 struct DishCategory: Decodable {
-    let id, name, image: String?
+    var id, name, image: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,8 +24,8 @@ struct DishCategory: Decodable {
 }
 
 struct Dish: Decodable {
-    let id, name, description, image: String?
-    let calories: Int?
+    var id, name, description, image: String?
+    var calories: Int?
 
     var formattedCalories: String {
         return "\(calories ?? 0) calories"
@@ -33,7 +33,7 @@ struct Dish: Decodable {
 }
 
 struct Order: Decodable {
-    let id: String?
-    let name: String?
-    let dish: Dish?
+    var id: String?
+    var name: String?
+    var dish: Dish?
 }

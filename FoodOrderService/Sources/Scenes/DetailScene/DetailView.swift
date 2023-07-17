@@ -8,11 +8,23 @@
 import Foundation
 import UIKit
 
-class DetailView: UIViewController {
+class DetailView: UIViewController, DetailController {
+    var goToDetail: ((Dish?) -> ())?
+
+    var dish: Dish? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.labelTitleDetail.text = self?.dish?.name ?? ""
+                self?.labelDescriptionDetail.text = self?.dish?.description ?? ""
+                self?.labelCaloriesDetail.text = self?.dish?.formattedCalories ?? ""
+                CreatureImageURL.shared.getDataImage(urlRequest: self?.dish?.image, imageFood: self?.imageDetail ?? UIImageView())
+            }
+        }
+    }
 
     //: MARK: - UI Elements
 
-    private lazy var imageDetail: UIImageView = {
+    lazy var imageDetail: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
@@ -21,7 +33,7 @@ class DetailView: UIViewController {
         return image
     }()
 
-    private lazy var labelTitleDetail: UILabel = {
+    lazy var labelTitleDetail: UILabel = {
         let label = UILabel()
         label.text = "Title"
         label.textColor = .black
@@ -31,7 +43,7 @@ class DetailView: UIViewController {
         return label
     }()
 
-    private lazy var labelCaloriesDetail: UILabel = {
+    lazy var labelCaloriesDetail: UILabel = {
         let label = UILabel()
         label.text = "Calories"
         label.textColor = .systemRed
@@ -39,7 +51,7 @@ class DetailView: UIViewController {
         return label
     }()
 
-    private lazy var labelDescriptionDetail: UILabel = {
+    lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
         label.text = "Some text"
         label.textColor = .systemGray
@@ -48,7 +60,7 @@ class DetailView: UIViewController {
         return label
     }()
 
-    private lazy var textDetail: UITextField = {
+    lazy var textDetail: UITextField = {
         let text = UITextField()
         text.textAlignment = .left
         text.backgroundColor = .white
@@ -130,10 +142,10 @@ class DetailView: UIViewController {
         ])
     }
 
-    func setupDetail(dish: Dish?) {
-        labelTitleDetail.text = dish?.name ?? ""
-        labelDescriptionDetail.text = dish?.description ?? ""
-        labelCaloriesDetail.text = dish?.formattedCalories ?? ""
-        CreatureImageURL.shared.getDataImage(urlRequest: dish?.image, imageFood: imageDetail)
+    func setupDish(dishs: Dish?) {
+        labelTitleDetail.text = dishs?.name ?? ""
+        labelDescriptionDetail.text = dishs?.description ?? ""
+        labelCaloriesDetail.text = dishs?.formattedCalories ?? ""
+        CreatureImageURL.shared.getDataImage(urlRequest: dishs?.image, imageFood: imageDetail)
     }
 }

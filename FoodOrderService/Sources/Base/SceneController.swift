@@ -17,3 +17,8 @@ protocol CollectionController {
     associatedtype T
     var goToCollection: ((T) -> ())? { get set }
 }
+
+protocol DetailController {
+    associatedtype Detail
+    var goToDetail: ((Detail) -> ())? { get set }
+}
