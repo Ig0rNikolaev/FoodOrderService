@@ -31,12 +31,17 @@ class OrderlistView: UIViewController, FlowController {
         setupHierarchy()
         setupLayout()
         configuration()
+        setupView()
     }
 
     //: MARK: - Setups
 
     private func configuration() {
         orderlistViewModel = OrderlistViewModel()
+    }
+
+    private func setupView() {
+        title = "Мои заказы"
     }
 
     private func setupHierarchy() {
@@ -80,5 +85,6 @@ extension OrderlistView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         orderlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+        orderList.deselectRow(at: indexPath, animated: true)
     }
 }

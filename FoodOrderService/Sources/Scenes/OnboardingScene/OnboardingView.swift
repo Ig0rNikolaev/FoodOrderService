@@ -109,8 +109,9 @@ final class OnboardingView: UIViewController, FlowController {
         onboardingViewModel?.button(currentPage: &currentPage,
                                     collectionView: collectionOnboarding,
                                     complitionHandler: goToNextScreen)
+        buttonOnboarding.clickButton(button: buttonOnboarding)
     }
-    
+
     private func setupView() {
         view.backgroundColor = .white
     }

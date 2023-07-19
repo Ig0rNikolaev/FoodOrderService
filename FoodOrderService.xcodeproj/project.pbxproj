@@ -31,6 +31,9 @@
 		DB9ECC792A5D847800186807 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9ECC782A5D847800186807 /* String+Extension.swift */; };
 		DB9ECC7B2A5EBB6600186807 /* ApiResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9ECC7A2A5EBB6600186807 /* ApiResponce.swift */; };
 		DB9ECC852A5ED63E00186807 /* AllDishes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9ECC802A5ED63E00186807 /* AllDishes.swift */; };
+		DBA60FCC2A66C7DD009B69F3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DBA60FCB2A66C7DD009B69F3 /* IQKeyboardManagerSwift */; };
+		DBA60FCF2A66F612009B69F3 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = DBA60FCE2A66F612009B69F3 /* ProgressHUD */; };
+		DBA60FD52A67FEF2009B69F3 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA60FD42A67FEF2009B69F3 /* DetailViewModel.swift */; };
 		DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F22A2A109F0056931C /* AppDelegate.swift */; };
 		DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F42A2A109F0056931C /* SceneDelegate.swift */; };
 		DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F62A2A109F0056931C /* OnboardingView.swift */; };
@@ -72,6 +75,7 @@
 		DB9ECC782A5D847800186807 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DB9ECC7A2A5EBB6600186807 /* ApiResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponce.swift; sourceTree = "<group>"; };
 		DB9ECC802A5ED63E00186807 /* AllDishes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllDishes.swift; sourceTree = "<group>"; };
+		DBA60FD42A67FEF2009B69F3 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DBE599EF2A2A109F0056931C /* FoodOrderService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodOrderService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE599F22A2A109F0056931C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE599F42A2A109F0056931C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA60FCC2A66C7DD009B69F3 /* IQKeyboardManagerSwift in Frameworks */,
+				DBA60FCF2A66F612009B69F3 /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				DBF493682A433E81007C9BD1 /* DetailView.swift */,
+				DBA60FD42A67FEF2009B69F3 /* DetailViewModel.swift */,
 			);
 			path = DetailScene;
 			sourceTree = "<group>";
@@ -323,6 +330,10 @@
 			dependencies = (
 			);
 			name = FoodOrderService;
+			packageProductDependencies = (
+				DBA60FCB2A66C7DD009B69F3 /* IQKeyboardManagerSwift */,
+				DBA60FCE2A66F612009B69F3 /* ProgressHUD */,
+			);
 			productName = FoodOrderService;
 			productReference = DBE599EF2A2A109F0056931C /* FoodOrderService.app */;
 			productType = "com.apple.product-type.application";
@@ -351,6 +362,10 @@
 				Base,
 			);
 			mainGroup = DBE599E62A2A109F0056931C;
+			packageReferences = (
+				DBA60FCA2A66C7DC009B69F3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				DBA60FCD2A66F612009B69F3 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+			);
 			productRefGroup = DBE599F02A2A109F0056931C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -402,6 +417,7 @@
 				DBF7EE4C2A4B52DF00D76518 /* AppCoordinator.swift in Sources */,
 				DB135B192A40C0DE004A116D /* MainCheffCell.swift in Sources */,
 				DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */,
+				DBA60FD52A67FEF2009B69F3 /* DetailViewModel.swift in Sources */,
 				DB9ECC7B2A5EBB6600186807 /* ApiResponce.swift in Sources */,
 				DB135B152A3C8038004A116D /* CollectionCell+Extension.swift in Sources */,
 				DB9ECC752A5D823F00186807 /* Route.swift in Sources */,
@@ -620,6 +636,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DBA60FCA2A66C7DC009B69F3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		DBA60FCD2A66F612009B69F3 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD?ysclid=lk8ihu5oos83269835";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DBA60FCB2A66C7DD009B69F3 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBA60FCA2A66C7DC009B69F3 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		DBA60FCE2A66F612009B69F3 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBA60FCD2A66F612009B69F3 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DBE599E72A2A109F0056931C /* Project object */;
 }

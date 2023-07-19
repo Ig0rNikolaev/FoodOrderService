@@ -11,11 +11,14 @@ enum Route {
     static let baseURL = "https://yummie.glitch.me"
     
     case allCategorise
+    case placeOrder(String)
     
     var description: String {
         switch self {
         case .allCategorise:
             return "/dish-categories"
+        case .placeOrder(let dishId):
+            return "/orders/\(dishId)"
         }
     }
 }

@@ -11,9 +11,9 @@ protocol MainViewModelProtocol: AnyObject {
     var topCategory: [MainTopModel] { get set }
     func setupCellView(imageCell: UIImageView, labelCellDescription: UILabel, index: Int)
     func configureTopCell(cell: MainTopCell, index: Int)
-    func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
+    func transitionSection(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
+    func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?)
     func transitionOrder(complitionHandler: SceneNavigation?)
-    func transitionDetailView(complitionHandler: ((Dish?) -> ())?, array: Dish?)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -32,11 +32,11 @@ class MainViewModel: MainViewModelProtocol {
         cell.setupTopCell(index: index)
     }
 
-    func transitionDetail(complitionHandler: ((SectionName) -> ())?, index: SectionName?) {
+    func transitionSection(complitionHandler: ((SectionName) -> ())?, index: SectionName?) {
         complitionHandler?(index ?? .category)
     }
 
-    func transitionDetailView(complitionHandler: ((Dish?) -> ())?, array: Dish?) {
+    func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?) {
         complitionHandler?(array)
     }
 

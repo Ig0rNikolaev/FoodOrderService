@@ -8,14 +8,18 @@
 import Foundation
 import UIKit
 
-// "https://yummie.glitch.me"
-
 struct NetworkService {
     static let shared = NetworkService(); private init() {}
 
     func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void) {
         let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .allCategorise)
         reqest(url: url, method: .get, completion: completion)
+    }
+
+    func placeOrder(dishID: String, name: String, completion: @escaping(Result<Order, NetworkError>) -> Void) {
+        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .placeOrder(dishID))
+        let params = ["name": name]
+        reqest(url: url, method: .post, parametrs: params, completion: completion)
     }
 
     func reqest<T: Decodable>(url: URL?, method: Method, parametrs: [String: Any]? = nil, completion: @escaping(Result<T, NetworkError>) -> Void) {

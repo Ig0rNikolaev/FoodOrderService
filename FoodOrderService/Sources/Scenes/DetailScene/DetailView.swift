@@ -5,26 +5,19 @@
 //  Created by Игорь Николаев on 21.06.2023.
 //
 
-import Foundation
 import UIKit
 
-class DetailView: UIViewController, DetailController {
-    var goToDetail: ((Dish?) -> ())?
-
+class DetailView: UIViewController {
+    var detailViewModel: DetailViewModelProtocol?
     var dish: Dish? {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.labelTitleDetail.text = self?.dish?.name ?? ""
-                self?.labelDescriptionDetail.text = self?.dish?.description ?? ""
-                self?.labelCaloriesDetail.text = self?.dish?.formattedCalories ?? ""
-                CreatureImageURL.shared.getDataImage(urlRequest: self?.dish?.image, imageFood: self?.imageDetail ?? UIImageView())
-            }
+            updateUI()
         }
     }
 
     //: MARK: - UI Elements
 
-    lazy var imageDetail: UIImageView = {
+    private lazy var imageDetail: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
@@ -33,7 +26,7 @@ class DetailView: UIViewController, DetailController {
         return image
     }()
 
-    lazy var labelTitleDetail: UILabel = {
+    private lazy var labelTitleDetail: UILabel = {
         let label = UILabel()
         label.text = "Title"
         label.textColor = .black
@@ -43,7 +36,7 @@ class DetailView: UIViewController, DetailController {
         return label
     }()
 
-    lazy var labelCaloriesDetail: UILabel = {
+    private lazy var labelCaloriesDetail: UILabel = {
         let label = UILabel()
         label.text = "Calories"
         label.textColor = .systemRed
@@ -51,7 +44,7 @@ class DetailView: UIViewController, DetailController {
         return label
     }()
 
-    lazy var labelDescriptionDetail: UILabel = {
+    private lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
         label.text = "Some text"
         label.textColor = .systemGray
@@ -60,7 +53,7 @@ class DetailView: UIViewController, DetailController {
         return label
     }()
 
-    lazy var textDetail: UITextField = {
+    private lazy var textDetail: UITextField = {
         let text = UITextField()
         text.textAlignment = .left
         text.backgroundColor = .white
@@ -76,9 +69,10 @@ class DetailView: UIViewController, DetailController {
     private lazy var buttonDetail: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemGreen
-        button.tintColor = .white
+        button.setTitleColor(.systemGreen, for: .highlighted)
         button.shadowButton()
         button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(addOrder), for: .touchUpInside)
         button.setTitle("Добавить в заказ", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -96,15 +90,33 @@ class DetailView: UIViewController, DetailController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configuration()
         setupView()
         setupHierarchy()
         setupLayout()
+        keyboardSetup()
     }
 
     //: MARK: - Setups
 
+    @objc func addOrder() {
+        detailViewModel?.tabButton(textDetail: textDetail, showAlert: showAlert, dish: dish)
+    }
+
+    private func configuration() {
+       detailViewModel = DetailViewModel()
+    }
+
     private func setupView() {
         view.backgroundColor = .systemGray6
+    }
+
+    private func showAlert() {
+        detailViewModel?.createAlert(viewController: self)
+    }
+
+    private func keyboardSetup() {
+        detailViewModel?.createKeyboard()
     }
 
     private func setupHierarchy() {
@@ -138,14 +150,16 @@ class DetailView: UIViewController, DetailController {
             buttonDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             buttonDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             buttonDetail.heightAnchor.constraint(equalToConstant: 50),
-            buttonDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            buttonDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
     }
 
-    func setupDish(dishs: Dish?) {
-        labelTitleDetail.text = dishs?.name ?? ""
-        labelDescriptionDetail.text = dishs?.description ?? ""
-        labelCaloriesDetail.text = dishs?.formattedCalories ?? ""
-        CreatureImageURL.shared.getDataImage(urlRequest: dishs?.image, imageFood: imageDetail)
+    private func updateUI() {
+        DispatchQueue.main.async { [weak self] in
+            self?.labelTitleDetail.text = self?.dish?.name ?? ""
+            self?.labelDescriptionDetail.text = self?.dish?.description ?? ""
+            self?.labelCaloriesDetail.text = self?.dish?.formattedCalories ?? ""
+            CreatureImageURL.shared.getDataImage(urlRequest: self?.dish?.image, imageFood: self?.imageDetail ?? UIImageView())
+        }
     }
 }

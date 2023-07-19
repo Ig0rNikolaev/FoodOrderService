@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import Foundation
 
-class MainView: UIViewController, FlowController, CollectionController, DetailController {
+class MainView: UIViewController, FlowController, CollectionController {
+    var mainViewModel: MainViewModelProtocol?
     var goToCollection: ((SectionName) -> ())?
     var goToDetail: ((Dish?) -> ())?
     var goToNextScreen: SceneNavigation?
-    var mainViewModel: MainViewModelProtocol?
 
     var categories: [DishCategory] = []
     var populars: [Dish] = []
@@ -37,6 +36,14 @@ class MainView: UIViewController, FlowController, CollectionController, DetailCo
         return collection
     }()
 
+    private lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .lightGray
+        indicator.style = .large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     //: MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -46,18 +53,7 @@ class MainView: UIViewController, FlowController, CollectionController, DetailCo
         setupLayout()
         navigationBar()
         configuration()
-
-        NetworkService.shared.fetchAllDishes { [weak self] result in
-            switch result {
-            case .success(let success):
-                self?.categories = success.categories ?? []
-                self?.populars = success.populars ?? []
-                self?.specials = success.specials ?? []
-                self?.collectionMain.reloadData()
-            case .failure(let failure):
-                print(failure)
-            }
-        }
+        network()
     }
 
     //: MARK: - Actions
@@ -67,6 +63,24 @@ class MainView: UIViewController, FlowController, CollectionController, DetailCo
     }
 
     //: MARK: - Setups
+
+    func network() {
+        indicator.startAnimating()
+        DispatchQueue.main.async {
+            NetworkService.shared.fetchAllDishes { [weak self] result in
+                switch result {
+                case .success(let success):
+                    self?.indicator.stopAnimating()
+                    self?.categories = success.categories ?? []
+                    self?.populars = success.populars ?? []
+                    self?.specials = success.specials ?? []
+                    self?.collectionMain.reloadData()
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        }
+    }
 
     private func configuration() {
         mainViewModel = MainViewModel()
@@ -78,6 +92,7 @@ class MainView: UIViewController, FlowController, CollectionController, DetailCo
 
     private func setupHierarchy() {
         view.addSubview(collectionMain)
+        view.addSubview(indicator)
     }
 
     private func setupLayout() {
@@ -86,14 +101,17 @@ class MainView: UIViewController, FlowController, CollectionController, DetailCo
             collectionMain.rightAnchor.constraint(equalTo: view.rightAnchor),
             collectionMain.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionMain.leftAnchor.constraint(equalTo: view.leftAnchor),
+
+            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
     private func navigationBar() {
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.tintColor = .systemGray2
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Item", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(addFood))
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Item", image: UIImage(systemName: "cart"), target: self, action: #selector(addFood))
     }
 
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
@@ -245,13 +263,13 @@ extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SectionName(rawValue: indexPath.section) {
         case .category:
-            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionSection(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
         case .popular:
-            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
-            mainViewModel?.transitionDetailView(complitionHandler: goToDetail, array: populars[indexPath.row])
+            mainViewModel?.transitionSection(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionDetail(complitionHandler: goToDetail, array: populars[indexPath.row])
         case .cheff:
-            mainViewModel?.transitionDetail(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
-            mainViewModel?.transitionDetailView(complitionHandler: goToDetail, array: specials[indexPath.row])
+            mainViewModel?.transitionSection(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionDetail(complitionHandler: goToDetail, array: specials[indexPath.row])
         default:
             break
         }

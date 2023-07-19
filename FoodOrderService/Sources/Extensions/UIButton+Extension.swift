@@ -15,4 +15,13 @@ extension UIButton {
         self.layer.shadowRadius = 10.0
         self.layer.masksToBounds = false
     }
+
+    func clickButton(button: UIButton) {
+        UIView.animate(withDuration: 0.05,
+                       animations: { button.transform = CGAffineTransform(scaleX: 0.95, y: 0.95) },
+                       completion: { _ in
+            UIView.animate(withDuration: 0.05) {
+                button.transform = CGAffineTransform.identity
+            }})
+    }
 }

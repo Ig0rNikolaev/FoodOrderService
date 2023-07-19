@@ -29,12 +29,17 @@ class DishlistView: UIViewController, FlowController {
         setupHierarchy()
         setupLayout()
         configuration()
+        setupView()
     }
     
     //: MARK: - Setups
 
     private func configuration() {
         dishlistViewModel = DishlistViewModel()
+    }
+
+    private func setupView() {
+        title = "Список блюд"
     }
     
     private func setupHierarchy() {
@@ -78,5 +83,6 @@ extension DishlistView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+        dishlist.deselectRow(at: indexPath, animated: true)
     }
 }
