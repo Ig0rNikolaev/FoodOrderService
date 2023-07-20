@@ -11,6 +11,7 @@ class MainView: UIViewController, FlowController, CollectionController {
     var mainViewModel: MainViewModelProtocol?
     var goToCollection: ((SectionName) -> ())?
     var goToDetail: ((Dish?) -> ())?
+    var goToDishCategory: ((DishCategory) -> ())?
     var goToNextScreen: SceneNavigation?
 
     var categories: [DishCategory] = []
@@ -264,6 +265,7 @@ extension MainView: UICollectionViewDelegate {
         switch SectionName(rawValue: indexPath.section) {
         case .category:
             mainViewModel?.transitionSection(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
+            mainViewModel?.transitionCategory(complitionHandler: goToDishCategory, array: categories[indexPath.row])
         case .popular:
             mainViewModel?.transitionSection(complitionHandler: goToCollection, index: SectionName(rawValue: indexPath.section))
             mainViewModel?.transitionDetail(complitionHandler: goToDetail, array: populars[indexPath.row])

@@ -17,8 +17,9 @@ class DishlistView: UIViewController, FlowController {
     //: MARK: - UI Elements
 
     private lazy var dishlist: UITableView = {
-        let dishlist = UITableView(frame: .zero, style: .insetGrouped)
+        let dishlist = UITableView(frame: .zero, style: .plain)
         dishlist.register(DishlistCell.self, forCellReuseIdentifier: DishlistCell.identifier)
+        dishlist.register(Header.self, forHeaderFooterViewReuseIdentifier: Header.identifier)
         dishlist.delegate = self
         dishlist.dataSource = self
         dishlist.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +34,12 @@ class DishlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
+        networkDishList()
+    }
+
+    //: MARK: - Setups
+
+    private func networkDishList() {
         NetworkService.shared.fetchCategoryDishes(categoryId: category?.id ?? "") { [weak self] (result) in
             switch result {
             case .success(let dishes):
@@ -45,14 +52,12 @@ class DishlistView: UIViewController, FlowController {
         }
     }
 
-    //: MARK: - Setups
-
     private func configuration() {
         dishlistViewModel = DishlistViewModel()
     }
 
     private func setupView() {
-        title = "Список блюд"
+        title = category?.name ?? ""
     }
     
     private func setupHierarchy() {
@@ -95,4 +100,19 @@ extension DishlistView: UITableViewDelegate {
         dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         dishlist.deselectRow(at: indexPath, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Header.identifier) as? Header else {
+            return UITableViewHeaderFooterView() }
+        header.header.text = "CПИСОК БЛЮД"
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       50
+    }
 }
+
+
+
+

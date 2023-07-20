@@ -16,7 +16,7 @@ class DishlistCell: UITableViewCell {
     private lazy var dishImage: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .blue
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.layer.cornerRadius = 5
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +79,8 @@ class DishlistCell: UITableViewCell {
             dishImage.heightAnchor.constraint(equalToConstant: 45),
 
             stackLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stackLabel.leftAnchor.constraint(equalTo: dishImage.rightAnchor, constant: 20)
-
+            stackLabel.leftAnchor.constraint(equalTo: dishImage.rightAnchor, constant: 20),
+            stackLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
         ])
     }
 

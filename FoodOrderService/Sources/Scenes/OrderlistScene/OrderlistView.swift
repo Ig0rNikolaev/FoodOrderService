@@ -16,8 +16,9 @@ class OrderlistView: UIViewController, FlowController {
     //: MARK: - UI Elements
 
     private lazy var orderList: UITableView = {
-        let orderList = UITableView(frame: .zero, style: .insetGrouped)
+        let orderList = UITableView(frame: .zero, style: .plain)
         orderList.register(DishlistCell.self, forCellReuseIdentifier: DishlistCell.identifier)
+        orderList.register(Header.self, forHeaderFooterViewReuseIdentifier: Header.identifier)
         orderList.delegate = self
         orderList.dataSource = self
         orderList.translatesAutoresizingMaskIntoConstraints = false
@@ -62,17 +63,13 @@ class OrderlistView: UIViewController, FlowController {
 
 extension OrderlistView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        10
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
                                                        for: indexPath) as? DishlistCell else { return UITableViewCell() }
         return cell
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        10
     }
 }
 
@@ -86,5 +83,16 @@ extension OrderlistView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         orderlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         orderList.deselectRow(at: indexPath, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Header.identifier) as? Header else {
+            return UITableViewHeaderFooterView() }
+        header.header.text = "ЗАКАЗЫ"
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       50
     }
 }

@@ -34,6 +34,7 @@
 		DBA60FCC2A66C7DD009B69F3 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DBA60FCB2A66C7DD009B69F3 /* IQKeyboardManagerSwift */; };
 		DBA60FCF2A66F612009B69F3 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = DBA60FCE2A66F612009B69F3 /* ProgressHUD */; };
 		DBA60FD52A67FEF2009B69F3 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA60FD42A67FEF2009B69F3 /* DetailViewModel.swift */; };
+		DBA60FD72A697D00009B69F3 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA60FD62A697D00009B69F3 /* Header.swift */; };
 		DBE599F32A2A109F0056931C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F22A2A109F0056931C /* AppDelegate.swift */; };
 		DBE599F52A2A109F0056931C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F42A2A109F0056931C /* SceneDelegate.swift */; };
 		DBE599F72A2A109F0056931C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599F62A2A109F0056931C /* OnboardingView.swift */; };
@@ -76,6 +77,7 @@
 		DB9ECC7A2A5EBB6600186807 /* ApiResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponce.swift; sourceTree = "<group>"; };
 		DB9ECC802A5ED63E00186807 /* AllDishes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllDishes.swift; sourceTree = "<group>"; };
 		DBA60FD42A67FEF2009B69F3 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		DBA60FD62A697D00009B69F3 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		DBE599EF2A2A109F0056931C /* FoodOrderService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodOrderService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE599F22A2A109F0056931C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE599F42A2A109F0056931C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		DB52C6562A39BDA200B9E556 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				DBA60FD62A697D00009B69F3 /* Header.swift */,
 				DB52C6572A39BDB300B9E556 /* Coordinator.swift */,
 				DB52C6592A39BDC900B9E556 /* SceneController.swift */,
 			);
@@ -396,6 +399,7 @@
 				DB135B102A3B50E4004A116D /* MainCategoryCell.swift in Sources */,
 				DB7D2B072A30BB9100BDA872 /* OnboardingViewModel.swift in Sources */,
 				DBF7EE4E2A4B543200D76518 /* OnboardingCoordinator.swift in Sources */,
+				DBA60FD72A697D00009B69F3 /* Header.swift in Sources */,
 				DB52C6502A38E2E000B9E556 /* ModulFactory.swift in Sources */,
 				DB9ECC712A5C484100186807 /* NetworkError.swift in Sources */,
 				DB52C65A2A39BDC900B9E556 /* SceneController.swift in Sources */,

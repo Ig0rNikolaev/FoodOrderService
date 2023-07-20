@@ -14,6 +14,7 @@ protocol MainViewModelProtocol: AnyObject {
     func transitionSection(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
     func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?)
     func transitionOrder(complitionHandler: SceneNavigation?)
+    func transitionCategory(complitionHandler: ((DishCategory) -> ())?, array: DishCategory?)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -38,6 +39,10 @@ class MainViewModel: MainViewModelProtocol {
 
     func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?) {
         complitionHandler?(array)
+    }
+
+    func transitionCategory(complitionHandler: ((DishCategory) -> ())?, array: DishCategory?) {
+        complitionHandler?(array ?? DishCategory())
     }
 
     func transitionOrder(complitionHandler: SceneNavigation?) {

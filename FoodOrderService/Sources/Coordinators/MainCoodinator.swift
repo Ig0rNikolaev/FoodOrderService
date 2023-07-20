@@ -25,7 +25,9 @@ class MainCoodinator: Coordinator {
         
         controller.goToCollection = { [weak self] section in
             if section == .category {
-                self?.showDishlistScene()
+                controller.goToDishCategory = { [weak self] cat in
+                    self?.showDishlistScene(dishCategory: cat)
+                }
             } else {
                 controller.goToDetail = { [weak self] dishs in
                     self?.showDetailScene(dishs: dishs)
@@ -57,11 +59,13 @@ class MainCoodinator: Coordinator {
         navigationController.present(detailNavigationController, animated: true)
     }
 
-    private func showDishlistScene() {
+    private func showDishlistScene(dishCategory: DishCategory) {
         let controller = moduleFactory.createDishlistView()
         controller.goToNextScreen = { [weak self] in
             self?.showDetailScene(dishs: nil)
         }
+
+        controller.category = dishCategory
         navigationController.pushViewController(controller, animated: true)
     }
     
