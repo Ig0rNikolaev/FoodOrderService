@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class DishlistView: UIViewController, FlowController {
     var goToNextScreen: SceneNavigation?
     var dishlistViewModel: DishlistViewModelProtocol?
+    var category: DishCategory?
+    var dishes: [Dish] = []
 
     //: MARK: - UI Elements
 
@@ -30,8 +33,18 @@ class DishlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
+        NetworkService.shared.fetchCategoryDishes(categoryId: category?.id ?? "") { [weak self] (result) in
+            switch result {
+            case .success(let dishes):
+                ProgressHUD.dismiss()
+                self?.dishes = dishes
+                self?.dishlist.reloadData()
+            case .failure(let error):
+                ProgressHUD.showError(error.localizedDescription)
+            }
+        }
     }
-    
+
     //: MARK: - Setups
 
     private func configuration() {
@@ -60,17 +73,14 @@ class DishlistView: UIViewController, FlowController {
 
 extension DishlistView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        dishes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
                                                        for: indexPath) as? DishlistCell else { return UITableViewCell() }
+        cell.dishListDetup(dish: dishes[indexPath.row])
         return cell
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        10
     }
 }
 
