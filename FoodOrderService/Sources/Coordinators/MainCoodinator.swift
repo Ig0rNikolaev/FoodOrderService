@@ -61,8 +61,8 @@ class MainCoodinator: Coordinator {
 
     private func showDishlistScene(dishCategory: DishCategory) {
         let controller = moduleFactory.createDishlistView()
-        controller.goToNextScreen = { [weak self] in
-            self?.showDetailScene(dishs: nil)
+        controller.goToDetail = { [weak self] dishDetail in
+            self?.showDetailScene(dishs: dishDetail)
         }
 
         controller.category = dishCategory
