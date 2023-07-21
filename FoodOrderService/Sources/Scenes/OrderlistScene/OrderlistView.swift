@@ -11,8 +11,9 @@ import UIKit
 
 class OrderlistView: UIViewController, FlowController {
     var goToNextScreen: SceneNavigation?
+    var goToDetail: ((Order?) -> ())?
     var orderlistViewModel: OrderlistViewModelProtocol?
-    var orders: [Order] = []
+    var orders: [Order] = [.init(id: "id", name: "order1", dish: .init(id: "id", name: "order1", description: "Some discript"))]
 
     //: MARK: - UI Elements
 
@@ -34,7 +35,7 @@ class OrderlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
-        networkOrder()
+//        networkOrder()
     }
 
     //: MARK: - Setups
@@ -97,6 +98,7 @@ extension OrderlistView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         orderlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+        orderlistViewModel?.transitionDetail(complitionHandler: goToDetail, array: orders[indexPath.row])
         orderList.deselectRow(at: indexPath, animated: true)
     }
 

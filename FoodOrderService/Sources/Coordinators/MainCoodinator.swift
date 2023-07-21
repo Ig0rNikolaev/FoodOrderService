@@ -71,8 +71,8 @@ class MainCoodinator: Coordinator {
     
     private func showOrderlistScene() {
         let controller = moduleFactory.createOrderView()
-        controller.goToNextScreen = { [weak self] in
-            self?.showDetailScene(dishs: nil)
+        controller.goToDetail = { [weak self] order in
+            self?.showDetailScene(dishs: order?.dish)
         }
         navigationController.pushViewController(controller, animated: true)
     }

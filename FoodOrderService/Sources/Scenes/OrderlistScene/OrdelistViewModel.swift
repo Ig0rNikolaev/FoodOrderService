@@ -9,10 +9,15 @@ import UIKit
 
 protocol OrderlistViewModelProtocol {
     func transitionDetail(complitionHandler: SceneNavigation?)
+    func transitionDetail(complitionHandler: ((Order?) -> ())?, array: Order?)
 }
 
 class OrderlistViewModel: OrderlistViewModelProtocol {
     func transitionDetail(complitionHandler: SceneNavigation?) {
         complitionHandler?()
+    }
+
+    func transitionDetail(complitionHandler: ((Order?) -> ())?, array: Order?) {
+        complitionHandler?(array)
     }
 }
