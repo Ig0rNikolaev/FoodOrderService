@@ -85,7 +85,7 @@ extension DishlistView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
                                                        for: indexPath) as? DishlistCell else { return UITableViewCell() }
-        cell.dishListDetup(dish: dishes[indexPath.row])
+        cell.dishListSetup(dish: dishes[indexPath.row])
         return cell
     }
 }

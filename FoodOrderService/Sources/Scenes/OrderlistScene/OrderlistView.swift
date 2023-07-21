@@ -6,12 +6,13 @@
 //
 
 import Foundation
-
+import ProgressHUD
 import UIKit
 
 class OrderlistView: UIViewController, FlowController {
     var goToNextScreen: SceneNavigation?
     var orderlistViewModel: OrderlistViewModelProtocol?
+    var orders: [Order] = []
 
     //: MARK: - UI Elements
 
@@ -33,9 +34,22 @@ class OrderlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
+        networkOrder()
     }
 
     //: MARK: - Setups
+
+    private func networkOrder() {
+        NetworkService.shared.fetchOrders { [weak self] result in
+            switch result {
+            case .success(let orders):
+                self?.orders = orders
+                self?.orderList.reloadData()
+            case .failure(let error):
+                ProgressHUD.showError(error.localizedDescription)
+            }
+        }
+    }
 
     private func configuration() {
         orderlistViewModel = OrderlistViewModel()
@@ -63,12 +77,13 @@ class OrderlistView: UIViewController, FlowController {
 
 extension OrderlistView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        orders.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
                                                        for: indexPath) as? DishlistCell else { return UITableViewCell() }
+        cell.orderListSetup(order: orders[indexPath.row])
         return cell
     }
 }

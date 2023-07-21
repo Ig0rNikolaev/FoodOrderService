@@ -84,9 +84,15 @@ class DishlistCell: UITableViewCell {
         ])
     }
 
-    func dishListDetup(dish: Dish) {
+    func dishListSetup(dish: Dish) {
         CreatureImageURL.shared.getDataImage(urlRequest: dish.image, imageFood: dishImage)
         dishTopLabel.text = dish.name
         dishLowLabel.text = dish.description
+    }
+
+    func orderListSetup(order: Order) {
+        CreatureImageURL.shared.getDataImage(urlRequest: order.dish?.image, imageFood: dishImage)
+        dishTopLabel.text = order.dish?.name
+        dishLowLabel.text = order.dish?.description
     }
 }

@@ -21,6 +21,11 @@ struct NetworkService {
         reqest(url: url, method: .get, completion: completion)
     }
 
+    func fetchOrders(completion: @escaping(Result<[Order], NetworkError>) -> Void) {
+        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .fetchOrder)
+        reqest(url: url, method: .get, completion: completion)
+    }
+
     func placeOrder(dishID: String, name: String, completion: @escaping(Result<Order, NetworkError>) -> Void) {
         let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .placeOrder(dishID))
         let params = ["name": name]
