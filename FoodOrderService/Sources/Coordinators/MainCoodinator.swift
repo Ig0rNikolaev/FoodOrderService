@@ -34,8 +34,8 @@ class MainCoodinator: Coordinator {
                 }
             }
         }
-        controller.goToNextScreen = { [weak self] in
-            self?.showOrderlistScene()
+        controller.goToOrder = { [weak self] order in
+            self?.showOrderlistScene(order: order ?? Order())
         }
         
         let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .curveEaseInOut]
@@ -69,7 +69,7 @@ class MainCoodinator: Coordinator {
         navigationController.pushViewController(controller, animated: true)
     }
     
-    private func showOrderlistScene() {
+    private func showOrderlistScene(order: Order) {
         let controller = moduleFactory.createOrderView()
         controller.goToDetail = { [weak self] order in
             self?.showDetailScene(dishs: order?.dish)

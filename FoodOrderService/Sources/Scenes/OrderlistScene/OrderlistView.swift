@@ -13,7 +13,7 @@ class OrderlistView: UIViewController, FlowController {
     var goToNextScreen: SceneNavigation?
     var goToDetail: ((Order?) -> ())?
     var orderlistViewModel: OrderlistViewModelProtocol?
-    var orders: [Order] = [.init(id: "id", name: "order1", dish: .init(id: "id", name: "order1", description: "Some discript"))]
+    var orders: [Order] = []
 
     //: MARK: - UI Elements
 
@@ -35,7 +35,7 @@ class OrderlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
-//        networkOrder()
+        networkOrder()
     }
 
     //: MARK: - Setups

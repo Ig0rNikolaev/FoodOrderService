@@ -11,6 +11,7 @@ class MainView: UIViewController, FlowController, CollectionController {
     var mainViewModel: MainViewModelProtocol?
     var goToCollection: ((SectionName) -> ())?
     var goToDetail: ((Dish?) -> ())?
+    var goToOrder: ((Order?) -> ())?
     var goToDishCategory: ((DishCategory) -> ())?
     var goToNextScreen: SceneNavigation?
 
@@ -60,7 +61,7 @@ class MainView: UIViewController, FlowController, CollectionController {
     //: MARK: - Actions
 
     @objc func addFood() {
-        mainViewModel?.transitionOrder(complitionHandler: goToNextScreen)
+        mainViewModel?.transitionOrder(complitionHandler: goToOrder)
     }
 
     //: MARK: - Setups
