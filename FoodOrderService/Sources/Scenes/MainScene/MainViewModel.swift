@@ -16,9 +16,15 @@ protocol MainViewModelProtocol: AnyObject {
     func transitionOrder(complitionHandler: SceneNavigation?)
     func transitionCategory(complitionHandler: ((DishCategory) -> ())?, array: DishCategory?)
     func transitionOrder(complitionHandler: ((Order?) -> ())?)
+    func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void)
 }
 
 class MainViewModel: MainViewModelProtocol {
+    private let networkService: NetworkServiceProtocol?
+    init(networkService: NetworkServiceProtocol = NetworkService.shared) {
+        self.networkService = networkService
+    }
+
     var topCategory: [MainTopModel] = [MainTopModel(description: "Рестораны", view: UIImage(named: "ресторан")),
                                        MainTopModel(description: "Продукты", view: UIImage(named: "продукты")),
                                        MainTopModel(description: "Доставка", view: UIImage(named: "доставка"))
@@ -52,5 +58,10 @@ class MainViewModel: MainViewModelProtocol {
 
     func transitionOrder(complitionHandler: SceneNavigation?) {
         complitionHandler?()
+    }
+
+    func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void) {
+        guard let url = networkService?.createURL(scheme: "https", host: "yummie.glitch.me", path: .allCategorise) else { return  }
+        networkService?.reqest(url: url, method: .get, parametrs: nil, completion: completion)
     }
 }

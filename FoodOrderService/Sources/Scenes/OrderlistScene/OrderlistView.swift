@@ -19,7 +19,7 @@ class OrderlistView: UIViewController, FlowController {
 
     private lazy var orderList: UITableView = {
         let orderList = UITableView(frame: .zero, style: .plain)
-        orderList.register(DishlistCell.self, forCellReuseIdentifier: DishlistCell.identifier)
+        orderList.register(DishOrderCell.self, forCellReuseIdentifier: DishOrderCell.identifier)
         orderList.register(Header.self, forHeaderFooterViewReuseIdentifier: Header.identifier)
         orderList.delegate = self
         orderList.dataSource = self
@@ -35,17 +35,20 @@ class OrderlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
-        networkOrder()
+        setupNetwork()
     }
 
     //: MARK: - Setups
 
-    private func networkOrder() {
-        NetworkService.shared.fetchOrders { [weak self] result in
+    private func setupNetwork() {
+        ProgressHUD.show()
+        orderlistViewModel?.fetchOrders { [weak self] result in
             switch result {
             case .success(let orders):
+                ProgressHUD.dismiss()
                 self?.orders = orders
                 self?.orderList.reloadData()
+                print(orders)
             case .failure(let error):
                 ProgressHUD.showError(error.localizedDescription)
             }
@@ -82,8 +85,8 @@ extension OrderlistView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
-                                                       for: indexPath) as? DishlistCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishOrderCell.identifier,
+                                                       for: indexPath) as? DishOrderCell else { return UITableViewCell() }
         cell.orderListSetup(order: orders[indexPath.row])
         return cell
     }
@@ -97,7 +100,7 @@ extension OrderlistView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        orderlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+//        orderlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         orderlistViewModel?.transitionDetail(complitionHandler: goToDetail, array: orders[indexPath.row])
         orderList.deselectRow(at: indexPath, animated: true)
     }

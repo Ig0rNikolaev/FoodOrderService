@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DishlistCell: UITableViewCell {
+class DishOrderCell: UITableViewCell {
 
-    static let identifier = "DishlistCell"
+    static let identifier = "DishOrderCell"
 
     //: MARK: - UI Elements
 

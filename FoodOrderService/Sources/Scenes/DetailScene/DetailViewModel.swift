@@ -14,14 +14,26 @@ protocol DetailViewModelProtocol: AnyObject {
     func tabButton(textDetail: UITextField, showAlert: () -> Void, dish: Dish?)
     func createAlert(viewController: UIViewController)
     func createKeyboard()
+    func placeOrder(dishID: String, name: String, completion: @escaping(Result<Order, NetworkError>) -> Void)
 }
 
 class DetailViewModel: DetailViewModelProtocol {
+    private let networkService: NetworkServiceProtocol?
+    init(networkService: NetworkServiceProtocol = NetworkService.shared) {
+        self.networkService = networkService
+    }
+
+    func placeOrder(dishID: String, name: String, completion: @escaping(Result<Order, NetworkError>) -> Void) {
+        let url = networkService?.createURL(scheme: "https", host: "yummie.glitch.me", path: .placeOrder(dishID))
+        let params = ["name": name]
+        networkService?.reqest(url: url, method: .post, parametrs: params, completion: completion)
+    }
+
     func tabButton(textDetail: UITextField, showAlert: () -> Void, dish: Dish?) {
         guard let name = textDetail.text?.trimmingCharacters(in: .whitespaces), !name.isEmpty else { return showAlert() }
         ProgressHUD.colorAnimation = .systemGreen
         ProgressHUD.show("Заказ добавляется...")
-        NetworkService.shared.placeOrder(dishID: dish?.id ?? "", name: name) { result in
+        placeOrder(dishID: dish?.id ?? "", name: name) { result in
             switch result {
             case .success(_):
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -44,10 +56,3 @@ class DetailViewModel: DetailViewModelProtocol {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
 }
-
-
-//private let networkService: NetworkServiceProtocol
-//
-//    init(networkService: NetworkServiceProtocol = NetworkService.shared) {
-//        self.networkService = networkService
-//    }   сделать в networkService протокол и добавить зависимости

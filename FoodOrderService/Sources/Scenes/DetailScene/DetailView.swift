@@ -14,9 +14,9 @@ class DetailView: UIViewController {
             updateUI()
         }
     }
-
+    
     //: MARK: - UI Elements
-
+    
     private lazy var imageDetail: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
@@ -25,7 +25,7 @@ class DetailView: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-
+    
     private lazy var labelTitleDetail: UILabel = {
         let label = UILabel()
         label.text = "Title"
@@ -35,7 +35,7 @@ class DetailView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var labelCaloriesDetail: UILabel = {
         let label = UILabel()
         label.text = "Calories"
@@ -43,7 +43,7 @@ class DetailView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
         label.text = "Some text"
@@ -52,7 +52,7 @@ class DetailView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var textDetail: UITextField = {
         let text = UITextField()
         text.textAlignment = .left
@@ -65,7 +65,7 @@ class DetailView: UIViewController {
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
-
+    
     private lazy var buttonDetail: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemGreen
@@ -77,7 +77,7 @@ class DetailView: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private lazy var labelStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [labelTitleDetail, labelCaloriesDetail])
         stack.axis = .horizontal
@@ -85,9 +85,9 @@ class DetailView: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
+    
     //: MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -96,29 +96,29 @@ class DetailView: UIViewController {
         setupLayout()
         keyboardSetup()
     }
-
+    
     //: MARK: - Setups
-
+    
     @objc func addOrder() {
         detailViewModel?.tabButton(textDetail: textDetail, showAlert: showAlert, dish: dish)
     }
-
+    
     private func configuration() {
-       detailViewModel = DetailViewModel()
+        detailViewModel = DetailViewModel()
     }
-
+    
     private func setupView() {
         view.backgroundColor = .systemGray6
     }
-
+    
     private func showAlert() {
         detailViewModel?.createAlert(viewController: self)
     }
-
+    
     private func keyboardSetup() {
         detailViewModel?.createKeyboard()
     }
-
+    
     private func setupHierarchy() {
         view.addSubview(imageDetail)
         view.addSubview(labelStack)
@@ -126,26 +126,26 @@ class DetailView: UIViewController {
         view.addSubview(textDetail)
         view.addSubview(buttonDetail)
     }
-
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             imageDetail.topAnchor.constraint(equalTo: view.topAnchor),
             imageDetail.rightAnchor.constraint(equalTo: view.rightAnchor),
             imageDetail.leftAnchor.constraint(equalTo: view.leftAnchor),
-
+            
             labelStack.topAnchor.constraint(equalTo: imageDetail.bottomAnchor, constant: 20),
             labelStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             labelStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-
+            
             labelDescriptionDetail.topAnchor.constraint(equalTo: labelTitleDetail.bottomAnchor, constant: 10),
             labelDescriptionDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             labelDescriptionDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-
+            
             textDetail.topAnchor.constraint(equalTo: labelDescriptionDetail.bottomAnchor, constant: 20),
             textDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             textDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             textDetail.heightAnchor.constraint(equalToConstant: 50),
-
+            
             buttonDetail.topAnchor.constraint(equalTo: textDetail.bottomAnchor, constant: 20),
             buttonDetail.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             buttonDetail.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
@@ -153,8 +153,8 @@ class DetailView: UIViewController {
             buttonDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
     }
-
-    private func updateUI() {
+    
+     func updateUI() {
         DispatchQueue.main.async { [weak self] in
             self?.labelTitleDetail.text = self?.dish?.name ?? ""
             self?.labelDescriptionDetail.text = self?.dish?.description ?? ""

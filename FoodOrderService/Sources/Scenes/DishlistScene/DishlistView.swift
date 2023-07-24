@@ -19,7 +19,7 @@ class DishlistView: UIViewController, FlowController {
 
     private lazy var dishlist: UITableView = {
         let dishlist = UITableView(frame: .zero, style: .plain)
-        dishlist.register(DishlistCell.self, forCellReuseIdentifier: DishlistCell.identifier)
+        dishlist.register(DishOrderCell.self, forCellReuseIdentifier: DishOrderCell.identifier)
         dishlist.register(Header.self, forHeaderFooterViewReuseIdentifier: Header.identifier)
         dishlist.delegate = self
         dishlist.dataSource = self
@@ -35,13 +35,13 @@ class DishlistView: UIViewController, FlowController {
         setupLayout()
         configuration()
         setupView()
-        networkDishList()
+        setupNetwork()
     }
 
     //: MARK: - Setups
 
-    private func networkDishList() {
-        NetworkService.shared.fetchCategoryDishes(categoryId: category?.id ?? "") { [weak self] (result) in
+    private func setupNetwork() {
+        dishlistViewModel?.fetchCategoryDishes(categoryId: category?.id ?? "") { [weak self] result in
             switch result {
             case .success(let dishes):
                 ProgressHUD.dismiss()
@@ -83,8 +83,8 @@ extension DishlistView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishlistCell.identifier,
-                                                       for: indexPath) as? DishlistCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishOrderCell.identifier,
+                                                       for: indexPath) as? DishOrderCell else { return UITableViewCell() }
         cell.dishListSetup(dish: dishes[indexPath.row])
         return cell
     }
@@ -98,7 +98,7 @@ extension DishlistView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
+//        dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         dishlistViewModel?.transitionDetail(complitionHandler: goToDetail, array: dishes[indexPath.row])
         dishlist.deselectRow(at: indexPath, animated: true)
     }

@@ -77,8 +77,6 @@ final class OnboardingView: UIViewController, FlowController {
         numberOfPages()
     }
 
-
-    
     //: MARK: - Setups
     
    private func createLayout() -> UICollectionViewCompositionalLayout {

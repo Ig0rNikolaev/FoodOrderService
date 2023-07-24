@@ -55,7 +55,7 @@ class MainView: UIViewController, FlowController, CollectionController {
         setupLayout()
         navigationBar()
         configuration()
-        network()
+        setupNetwork()
     }
 
     //: MARK: - Actions
@@ -66,10 +66,10 @@ class MainView: UIViewController, FlowController, CollectionController {
 
     //: MARK: - Setups
 
-    func network() {
+    func setupNetwork() {
         indicator.startAnimating()
         DispatchQueue.main.async {
-            NetworkService.shared.fetchAllDishes { [weak self] result in
+            self.mainViewModel?.fetchAllDishes { [weak self] result in
                 switch result {
                 case .success(let success):
                     self?.indicator.stopAnimating()

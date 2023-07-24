@@ -8,30 +8,24 @@
 import Foundation
 import UIKit
 
-struct NetworkService {
+protocol NetworkServiceProtocol {
+    func reqest<T: Decodable>(url: URL?, method: Method, parametrs: [String: Any]?, completion: @escaping(Result<T, NetworkError>) -> Void)
+    func handleResponce<T: Decodable>(result: Result<Data, NetworkError>?, completion: (Result<T, NetworkError>)  -> Void)
+    func createReqest(url: URL?, method: Method, parametrs: [String: Any]?) -> URLRequest?
+    func createURL(scheme: String, host: String, path: Route) -> URL?
+}
+
+struct NetworkService: NetworkServiceProtocol {
     static let shared = NetworkService(); private init() {}
 
-    func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void) {
-        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .allCategorise)
-        reqest(url: url, method: .get, completion: completion)
+    func createURL(scheme: String, host: String, path: Route) -> URL? {
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
+        components.path = path.description
+        return components.url
     }
-
-    func fetchCategoryDishes(categoryId: String, completion: @escaping(Result<[Dish], NetworkError>) -> Void) {
-        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .fetchCategoryDishes(categoryId))
-        reqest(url: url, method: .get, completion: completion)
-    }
-
-    func fetchOrders(completion: @escaping(Result<[Order], NetworkError>) -> Void) {
-        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .fetchOrder)
-        reqest(url: url, method: .get, completion: completion)
-    }
-
-    func placeOrder(dishID: String, name: String, completion: @escaping(Result<Order, NetworkError>) -> Void) {
-        let url = createURL(scheme: "https", host: "yummie.glitch.me", path: .placeOrder(dishID))
-        let params = ["name": name]
-        reqest(url: url, method: .post, parametrs: params, completion: completion)
-    }
-
+    
     func reqest<T: Decodable>(url: URL?, method: Method, parametrs: [String: Any]? = nil, completion: @escaping(Result<T, NetworkError>) -> Void) {
         guard let reqest = createReqest(url: url, method: method, parametrs: parametrs) else {
             completion(.failure(NetworkError.unknown))
@@ -41,8 +35,6 @@ struct NetworkService {
             var result: Result<Data, NetworkError>?
             if let data = data {
                 result = .success(data)
-                let responseString = String(data: data, encoding: .utf8) ?? ""
-                print(responseString)
             } else if let error = error {
                 result = .failure(NetworkError.unknown)
                 print(error.localizedDescription)
@@ -53,7 +45,7 @@ struct NetworkService {
         }.resume()
     }
 
-    private func handleResponce<T: Decodable>(result: Result<Data, NetworkError>?, completion: (Result<T, NetworkError>)  -> Void) {
+    func handleResponce<T: Decodable>(result: Result<Data, NetworkError>?, completion: (Result<T, NetworkError>)  -> Void) {
         guard let result = result else {
             completion(.failure(NetworkError.unknown))
             return
@@ -65,7 +57,7 @@ struct NetworkService {
                 completion(.failure(NetworkError.unknown))
                 return
             }
-            if let error = responce.error {
+            if responce.error != nil {
                 completion(.failure(NetworkError.unknown))
             }
             if let decodeData = responce.data {
@@ -96,14 +88,6 @@ struct NetworkService {
             }
         }
         return urlRequest
-    }
-
-    func createURL(scheme: String, host: String, path: Route) -> URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = path.description
-        return components.url
     }
 }
 
