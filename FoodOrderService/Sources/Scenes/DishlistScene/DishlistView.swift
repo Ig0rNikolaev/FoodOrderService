@@ -8,8 +8,7 @@
 import UIKit
 import ProgressHUD
 
-class DishlistView: UIViewController, FlowController {
-    var goToNextScreen: SceneNavigation?
+class DishlistView: UIViewController, DetailController {
     var dishlistViewModel: DishlistViewModelProtocol?
     var goToDetail: ((Dish?) -> ())?
     var category: DishCategory?
@@ -98,7 +97,6 @@ extension DishlistView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        dishlistViewModel?.transitionDetail(complitionHandler: goToNextScreen)
         dishlistViewModel?.transitionDetail(complitionHandler: goToDetail, array: dishes[indexPath.row])
         dishlist.deselectRow(at: indexPath, animated: true)
     }

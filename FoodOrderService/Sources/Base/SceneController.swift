@@ -7,6 +7,7 @@
 
 import UIKit
 
+typealias SceneController = DetailController & CollectionController & OrderController
 typealias SceneNavigation = () -> ()
 
 protocol FlowController {
@@ -14,11 +15,14 @@ protocol FlowController {
 }
 
 protocol CollectionController {
-    associatedtype T
-    var goToCollection: ((T) -> ())? { get set }
+    var goToCollection: ((SectionName) -> ())? { get set }
+    var goToDishCategory: ((DishCategory) -> ())? { get set }
 }
 
 protocol DetailController {
-    associatedtype Detail
-    var goToDetail: ((Detail) -> ())? { get set }
+    var goToDetail: ((Dish?) -> ())? { get set }
+}
+
+protocol OrderController {
+    var goToOrder: ((Order?) -> ())? { get set }
 }

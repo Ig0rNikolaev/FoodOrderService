@@ -9,14 +9,14 @@ import UIKit
 
 protocol MainViewModelProtocol: AnyObject {
     var topCategory: [MainTopModel] { get set }
+    func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void)
     func setupCellView(imageCell: UIImageView, labelCellDescription: UILabel, index: Int)
     func configureTopCell(cell: MainTopCell, index: Int)
+
     func transitionSection(complitionHandler: ((SectionName) -> ())?, index: SectionName?)
     func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?)
-    func transitionOrder(complitionHandler: SceneNavigation?)
     func transitionCategory(complitionHandler: ((DishCategory) -> ())?, array: DishCategory?)
     func transitionOrder(complitionHandler: ((Order?) -> ())?)
-    func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void)
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -54,10 +54,6 @@ class MainViewModel: MainViewModelProtocol {
 
     func transitionCategory(complitionHandler: ((DishCategory) -> ())?, array: DishCategory?) {
         complitionHandler?(array ?? DishCategory())
-    }
-
-    func transitionOrder(complitionHandler: SceneNavigation?) {
-        complitionHandler?()
     }
 
     func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void) {

@@ -7,13 +7,12 @@
 
 import UIKit
 
-class MainView: UIViewController, FlowController, CollectionController {
+class MainView: UIViewController, SceneController {
     var mainViewModel: MainViewModelProtocol?
     var goToCollection: ((SectionName) -> ())?
+    var goToDishCategory: ((DishCategory) -> ())?
     var goToDetail: ((Dish?) -> ())?
     var goToOrder: ((Order?) -> ())?
-    var goToDishCategory: ((DishCategory) -> ())?
-    var goToNextScreen: SceneNavigation?
 
     var categories: [DishCategory] = []
     var populars: [Dish] = []
