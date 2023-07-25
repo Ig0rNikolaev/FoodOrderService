@@ -7,6 +7,14 @@
 
 import UIKit
 
+fileprivate enum OrderlistConstantsVM {
+
+    //: MARK: - StringConstants
+
+    static let scheme = "https"
+    static let host = "yummie.glitch.me"
+}
+
 protocol OrderlistViewModelProtocol {
     func transitionDetail(complitionHandler: SceneNavigation?)
     func transitionDetail(complitionHandler: ((Order?) -> ())?, array: Order?)
@@ -28,7 +36,7 @@ class OrderlistViewModel: OrderlistViewModelProtocol {
     }
 
     func fetchOrders(completion: @escaping(Result<[Order], NetworkError>) -> Void) {
-        let url = networkService?.createURL(scheme: "https", host: "yummie.glitch.me", path: .fetchOrder)
+        let url = networkService?.createURL(scheme: OrderlistConstantsVM.scheme, host: OrderlistConstantsVM.host, path: .fetchOrder)
         networkService?.reqest(url: url, method: .get, parametrs: nil, completion: completion)
     }
 }

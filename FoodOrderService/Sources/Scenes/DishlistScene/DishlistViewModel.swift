@@ -7,6 +7,14 @@
 
 import UIKit
 
+fileprivate enum DishlistConstantsVM {
+
+    //: MARK: - StringConstants
+
+    static let scheme = "https"
+    static let host = "yummie.glitch.me"
+}
+
 protocol DishlistViewModelProtocol {
     func transitionDetail(complitionHandler: SceneNavigation?)
     func transitionDetail(complitionHandler: ((Dish?) -> ())?, array: Dish?)
@@ -28,7 +36,7 @@ class DishlistViewModel: DishlistViewModelProtocol {
     }
 
     func fetchCategoryDishes(categoryId: String, completion: @escaping(Result<[Dish], NetworkError>) -> Void) {
-        let url = networkService?.createURL(scheme: "https", host: "yummie.glitch.me", path: .fetchCategoryDishes(categoryId))
+        let url = networkService?.createURL(scheme: DishlistConstantsVM.scheme, host: DishlistConstantsVM.host, path: .fetchCategoryDishes(categoryId))
         networkService?.reqest(url: url, method: .get, parametrs: nil, completion: completion)
     }
 }

@@ -7,6 +7,18 @@
 
 import UIKit
 
+fileprivate enum MainConstantsVM {
+
+    //: MARK: - StringConstants
+
+    static let topDescriptionOne = "Рестораны"
+    static let topViewOne = "ресторан"
+    static let topDescriptionTwo = "Продукты"
+    static let topViewTwo = "продукты"
+    static let topDescriptionThree = "Доставка"
+    static let topViewThree = "доставка"
+}
+
 protocol MainViewModelProtocol: AnyObject {
     var topCategory: [MainTopModel] { get set }
     func fetchAllDishes(completion: @escaping(Result<AllDishes, NetworkError>) -> Void)
@@ -25,16 +37,18 @@ class MainViewModel: MainViewModelProtocol {
         self.networkService = networkService
     }
 
-    var topCategory: [MainTopModel] = [MainTopModel(description: "Рестораны", view: UIImage(named: "ресторан")),
-                                       MainTopModel(description: "Продукты", view: UIImage(named: "продукты")),
-                                       MainTopModel(description: "Доставка", view: UIImage(named: "доставка"))
+    var topCategory: [MainTopModel] = [MainTopModel(description: MainConstantsVM.topDescriptionOne,
+                                                    view: UIImage(named: MainConstantsVM.topViewOne)),
+                                       MainTopModel(description: MainConstantsVM.topDescriptionTwo,
+                                                    view: UIImage(named: MainConstantsVM.topViewTwo)),
+                                       MainTopModel(description: MainConstantsVM.topDescriptionThree,
+                                                    view: UIImage(named: MainConstantsVM.topViewThree))
     ]
 
     func setupCellView(imageCell: UIImageView, labelCellDescription: UILabel, index: Int) {
         imageCell.image = topCategory[index].view
         labelCellDescription.text = topCategory[index].description
     }
-
 
     func configureTopCell(cell: MainTopCell, index: Int) {
         cell.setupTopCell(index: index)

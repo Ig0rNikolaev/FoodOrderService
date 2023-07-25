@@ -5,9 +5,16 @@
 //  Created by Игорь Николаев on 28.06.2023.
 //
 
-import Foundation
 import ProgressHUD
 import UIKit
+
+fileprivate enum OrderlistConstants {
+
+    //: MARK: - StringConstants
+
+    static let header = "ЗАКАЗЫ"
+}
+
 
 class OrderlistView: UIViewController, OrderController {
     var goToOrder: ((Order?) -> ())?

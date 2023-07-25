@@ -8,6 +8,13 @@
 import UIKit
 import ProgressHUD
 
+fileprivate enum DishlistConstants {
+
+    //: MARK: - StringConstants
+
+    static let header = "CПИСОК БЛЮД"
+}
+
 class DishlistView: UIViewController, DetailController {
     var dishlistViewModel: DishlistViewModelProtocol?
     var goToDetail: ((Dish?) -> ())?
@@ -104,7 +111,7 @@ extension DishlistView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Header.identifier) as? Header else {
             return UITableViewHeaderFooterView() }
-        header.header.text = "CПИСОК БЛЮД"
+        header.header.text = DishlistConstants.header
         return header
     }
 

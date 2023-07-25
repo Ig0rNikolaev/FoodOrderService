@@ -83,5 +83,7 @@ class MainCategoryCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        labelCategory.text = nil
+        imageCategory.image = nil
     }
 }

@@ -7,6 +7,14 @@
 
 import UIKit
 
+fileprivate enum OnboardingConstants {
+
+    //: MARK: - StringConstants
+
+    static let buttonTitleStart = "Начало"
+    static let buttonTitleFurther = "Далее"
+}
+
 final class OnboardingView: UIViewController, FlowController {
     var goToNextScreen: SceneNavigation?
     var onboardingViewModel: OnboardingViewModelProtocol?
@@ -14,9 +22,9 @@ final class OnboardingView: UIViewController, FlowController {
         didSet {
             pageOnboarding.currentPage = currentPage
             if currentPage == (onboardingViewModel?.slides.count ?? 0) - 1 {
-                buttonOnboarding.setTitle("Начало", for: .normal)
+                buttonOnboarding.setTitle(OnboardingConstants.buttonTitleStart, for: .normal)
             } else {
-                buttonOnboarding.setTitle("Далее", for: .normal)
+                buttonOnboarding.setTitle(OnboardingConstants.buttonTitleFurther, for: .normal)
             }
         }
     }
@@ -49,7 +57,7 @@ final class OnboardingView: UIViewController, FlowController {
     private lazy var buttonOnboarding: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemBlue
-        button.setTitle("Далее", for: .normal)
+        button.setTitle(OnboardingConstants.buttonTitleStart, for: .normal)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

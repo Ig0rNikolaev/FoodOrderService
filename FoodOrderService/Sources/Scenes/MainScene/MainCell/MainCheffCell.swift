@@ -115,5 +115,9 @@ class MainCheffCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        topLabelCheff.text = nil
+        middleLabelCheff.text = nil
+        lowLabelCheff.text = nil
+        imageCheff.image = nil
     }
 }

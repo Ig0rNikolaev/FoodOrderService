@@ -7,7 +7,19 @@
 
 import UIKit
 
-class MainView: UIViewController, SceneController {
+fileprivate enum MainConstants {
+
+    //: MARK: - StringConstants
+
+    static let categoryHeader = "Категории"
+    static let popularHeader = "Популярные блюда"
+    static let cheffHeader =  "Блюда от шефа"
+    static let defaultHeader = "default"
+    static let titleButton = "title"
+    static let imageButton = "cart"
+}
+
+ class MainView: UIViewController, SceneController {
     var mainViewModel: MainViewModelProtocol?
     var goToCollection: ((SectionName) -> ())?
     var goToDishCategory: ((DishCategory) -> ())?
@@ -65,23 +77,23 @@ class MainView: UIViewController, SceneController {
 
     //: MARK: - Setups
 
-    func setupNetwork() {
-        indicator.startAnimating()
-        DispatchQueue.main.async {
-            self.mainViewModel?.fetchAllDishes { [weak self] result in
-                switch result {
-                case .success(let success):
-                    self?.indicator.stopAnimating()
-                    self?.categories = success.categories ?? []
-                    self?.populars = success.populars ?? []
-                    self?.specials = success.specials ?? []
-                    self?.collectionMain.reloadData()
-                case .failure(let failure):
-                    print(failure)
-                }
-            }
-        }
-    }
+     func setupNetwork() {
+         indicator.startAnimating()
+         DispatchQueue.main.async {
+             self.mainViewModel?.fetchAllDishes { [weak self] result in
+                 switch result {
+                 case .success(let success):
+                     self?.indicator.stopAnimating()
+                     self?.categories = success.categories ?? []
+                     self?.populars = success.populars ?? []
+                     self?.specials = success.specials ?? []
+                     self?.collectionMain.reloadData()
+                 case .failure(let failure):
+                     print(failure)
+                 }
+             }
+         }
+     }
 
     private func configuration() {
         mainViewModel = MainViewModel()
@@ -112,7 +124,9 @@ class MainView: UIViewController, SceneController {
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Item", image: UIImage(systemName: "cart"), target: self, action: #selector(addFood))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: MainConstants.titleButton,
+                                                            image: UIImage(systemName: MainConstants.imageButton),
+                                                            target: self, action: #selector(addFood))
     }
 
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
@@ -192,7 +206,7 @@ extension MainView: UICollectionViewDataSource {
         case .cheff:
             return specials.count
         default:
-            return 10
+            return specials.count
         }
     }
 
@@ -242,16 +256,16 @@ extension MainView: UICollectionViewDataSource {
         case .top:
             return header
         case .category:
-            header.categoryHeader.text = "Категории"
+            header.categoryHeader.text = MainConstants.categoryHeader
             return header
         case .popular:
-            header.categoryHeader.text = "Популярные блюда"
+            header.categoryHeader.text = MainConstants.popularHeader
             return header
         case .cheff:
-            header.categoryHeader.text = "Блюда от шефа"
+            header.categoryHeader.text = MainConstants.cheffHeader
             return header
         default:
-            header.categoryHeader.text = "default"
+            header.categoryHeader.text = MainConstants.defaultHeader
             return header
         }
     }

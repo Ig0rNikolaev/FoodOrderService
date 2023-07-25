@@ -7,6 +7,14 @@
 
 import UIKit
 
+fileprivate enum DetailConstants {
+
+    //: MARK: - StringConstants
+
+    static let placeholder = "Введите Ваше имя"
+    static let buttonDetail = "Добавить в заказ"
+}
+
 class DetailView: UIViewController {
     var detailViewModel: DetailViewModelProtocol?
     var dish: Dish? {
@@ -28,7 +36,6 @@ class DetailView: UIViewController {
     
     private lazy var labelTitleDetail: UILabel = {
         let label = UILabel()
-        label.text = "Title"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = .max
@@ -38,7 +45,6 @@ class DetailView: UIViewController {
     
     private lazy var labelCaloriesDetail: UILabel = {
         let label = UILabel()
-        label.text = "Calories"
         label.textColor = .systemRed
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +52,6 @@ class DetailView: UIViewController {
     
     private lazy var labelDescriptionDetail: UILabel = {
         let label = UILabel()
-        label.text = "Some text"
         label.textColor = .systemGray
         label.numberOfLines = .max
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +65,7 @@ class DetailView: UIViewController {
         text.textAlignment = .center
         text.layer.cornerRadius = 5
         text.borderStyle = .roundedRect
-        text.attributedPlaceholder = NSAttributedString(string: text.placeholder ?? "Введите Ваше имя",
+        text.attributedPlaceholder = NSAttributedString(string: text.placeholder ?? DetailConstants.placeholder,
                                                         attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -73,7 +78,7 @@ class DetailView: UIViewController {
         button.shadowButton()
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(addOrder), for: .touchUpInside)
-        button.setTitle("Добавить в заказ", for: .normal)
+        button.setTitle(DetailConstants.buttonDetail, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

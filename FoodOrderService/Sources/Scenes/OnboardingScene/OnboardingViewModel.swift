@@ -7,6 +7,21 @@
 
 import UIKit
 
+fileprivate enum OnboardingConstantsVM {
+
+    //: MARK: - StringConstants
+
+    static let titleSlideOne = "Оформление заказов\n онлайн 24/7"
+    static let descriptionSlideOne = "Система онлайн заказа продуктов и блюд из магазинов и ресторанов не выходя из дома"
+    static let viewSlideOne = "slide1"
+    static let titleSlideTwo = "Быстрая доставка до Вашей двери"
+    static let descriptionSlideTwo = "Курьер в короткие сроки заберет Ваша заказ и доставит его Вам"
+    static let viewSlideTwo = "slide2"
+    static let titleSlideThree = "Любые блюда у Вас на столе"
+    static let descriptionSlideThree = "Любые деликатесы и блюда разной кухни, стрит-фуд из ресторанов, кафе и баров"
+    static let viewSlideThree = "slide3"
+}
+
 protocol OnboardingViewModelProtocol: AnyObject {
     var slides: [OnboardingModel] { get set }
     func configureCell(cell: OnboardingCell, at index: Int)
@@ -15,15 +30,15 @@ protocol OnboardingViewModelProtocol: AnyObject {
 }
 
 class OnboardingViewModel: OnboardingViewModelProtocol {
-    var slides = [OnboardingModel(title: "Оформление заказов\n онлайн 24/7",
-                                  description: "Система онлайн заказа продуктов и блюд из магазинов и ресторанов не выходя из дома",
-                                  view: UIImage(named: "slide4") ?? UIImage()),
-                  OnboardingModel(title: "Быстрая доставка до Вашей двери",
-                                  description: "Курьер в короткие сроки заберет Ваша заказ и доставит его Вам",
-                                  view:  UIImage(named: "slide3") ?? UIImage()),
-                  OnboardingModel(title: "Любые блюда у Вас на столе",
-                                  description: "Любые деликатесы и блюда разной кухни, стрит-фуд из ресторанов, кафе и баров",
-                                  view:  UIImage(named: "slide2") ?? UIImage())
+    var slides = [OnboardingModel(title: OnboardingConstantsVM.titleSlideOne,
+                                  description: OnboardingConstantsVM.descriptionSlideOne,
+                                  view: UIImage(named: OnboardingConstantsVM.viewSlideOne) ?? UIImage()),
+                  OnboardingModel(title: OnboardingConstantsVM.titleSlideTwo,
+                                  description: OnboardingConstantsVM.descriptionSlideTwo,
+                                  view:  UIImage(named: OnboardingConstantsVM.viewSlideTwo) ?? UIImage()),
+                  OnboardingModel(title: OnboardingConstantsVM.titleSlideOne,
+                                  description: OnboardingConstantsVM.descriptionSlideThree,
+                                  view:  UIImage(named: OnboardingConstantsVM.viewSlideThree) ?? UIImage())
     ]
     
     func setupCellView(imageCell: UIImageView, labelCellTitle: UILabel, labelCellDescription: UILabel, index: Int) {

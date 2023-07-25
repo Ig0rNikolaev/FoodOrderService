@@ -33,7 +33,7 @@ class MainTopCell: UICollectionViewCell {
         return image
     }()
 
-        lazy var labelCategory: UILabel = {
+    lazy var labelCategory: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Text"
@@ -78,12 +78,14 @@ class MainTopCell: UICollectionViewCell {
             labelCategory.topAnchor.constraint(equalTo: containerImageCategory.bottomAnchor, constant: 5)
         ])
     }
-
+    
     func setupTopCell(index: Int) {
         mainViewModel.setupCellView(imageCell: imageCategory, labelCellDescription: labelCategory, index: index)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageCategory.image = nil
+        labelCategory.text = nil
     }
 }

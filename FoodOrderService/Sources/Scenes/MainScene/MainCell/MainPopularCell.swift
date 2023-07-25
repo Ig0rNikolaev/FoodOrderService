@@ -118,5 +118,9 @@ class MainPopularCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        upLabelPopular.text = nil
+        lowLabelPopular.text = nil
+        secondLowLabelPopular.text = nil
+        imagePopular.image = nil
     }
 }

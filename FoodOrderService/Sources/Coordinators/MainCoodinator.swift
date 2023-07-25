@@ -11,7 +11,7 @@ class MainCoodinator: Coordinator {
     var flowComplitionHandler: CoodinatorHandler?
     var navigationController: UINavigationController
     private let moduleFactory = ModulFactory()
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -25,8 +25,8 @@ class MainCoodinator: Coordinator {
         
         controller.goToCollection = { [weak self] section in
             if section == .category {
-                controller.goToDishCategory = { [weak self] cat in
-                    self?.showDishlistScene(dishCategory: cat)
+                controller.goToDishCategory = { [weak self] categorys in
+                    self?.showDishlistScene(dishCategory: categorys)
                 }
             } else {
                 controller.goToDetail = { [weak self] dishs in
@@ -47,24 +47,24 @@ class MainCoodinator: Coordinator {
         
         navigationController.pushViewController(controller, animated: false)
     }
-
+    
     private func showDetailScene(dishs: Dish?) {
         let controller = moduleFactory.createDetailView()
         controller.dish = dishs
-
+        
         let detailNavigationController = UINavigationController(rootViewController: controller)
         if let sheet = detailNavigationController.sheetPresentationController {
             sheet.detents = [.large()]
         }
         navigationController.present(detailNavigationController, animated: true)
     }
-
+    
     private func showDishlistScene(dishCategory: DishCategory) {
         let controller = moduleFactory.createDishlistView()
         controller.goToDetail = { [weak self] dishDetail in
             self?.showDetailScene(dishs: dishDetail)
         }
-
+        
         controller.category = dishCategory
         navigationController.pushViewController(controller, animated: true)
     }
